@@ -1,0 +1,77 @@
+ifndef::snippets[]
+:snippets: ./build/generated-snippets
+endif::[]
+:toc: left
+:toclevels: 2
+:toc-title: search api
+:doctype: book
+:source-highlighter: highlightjs
+:sectlinks:
+
+= 👏 search API
+
+== 📗 검색
+
+### 📄 카카오 (정확도)
+
+==== ✅ REQUEST HTTP
+include::{snippets}//search-controller-docs/search-a/http-request.adoc[]
+
+==== ✅ REQUEST PARAMETER
+include::{snippets}/search-controller-docs/search-a/request-parameters.adoc[]
+
+
+==== ✅ RESPONSE
+include::{snippets}/search-controller-docs/search-a/http-response.adoc[]
+
+==== ✅ RESPONSE FIELD
+
+include::{snippets}/search-controller-docs/search-a/response-fields.adoc[]
+
+### 📄 카카오 (최신순)
+
+==== ✅ REQUEST HTTP
+include::{snippets}//search-controller-docs/search-r/http-request.adoc[]
+
+==== ✅ REQUEST PARAMETER
+include::{snippets}/search-controller-docs/search-r/request-parameters.adoc[]
+
+
+==== ✅ RESPONSE
+include::{snippets}/search-controller-docs/search-r/http-response.adoc[]
+
+==== ✅ RESPONSE FIELD
+
+include::{snippets}/search-controller-docs/search-r/response-fields.adoc[]
+
+### 📄 네이버 (정확도)
+
+==== ✅ REQUEST HTTP
+include::{snippets}/search-controller-docs/search-naver-a/http-request.adoc[]
+
+==== ✅ REQUEST PARAMETER
+include::{snippets}/search-controller-docs/search-naver-a/request-parameters.adoc[]
+
+
+==== ✅ RESPONSE
+include::{snippets}/search-controller-docs/search-naver-a/http-response.adoc[]
+
+==== ✅ RESPONSE FIELD
+
+include::{snippets}/search-controller-docs/search-naver-a/response-fields.adoc[]
+
+### 📄 네이버 (최신순)
+
+==== ✅ REQUEST HTTP
+include::{snippets}/search-controller-docs/search-naver-r/http-request.adoc[]
+
+==== ✅ REQUEST PARAMETER
+include::{snippets}/search-controller-docs/search-naver-r/request-parameters.adoc[]
+
+
+==== ✅ RESPONSE
+include::{snippets}/search-controller-docs/search-naver-r/http-response.adoc[]
+
+==== ✅ RESPONSE FIELD
+
+include::{snippets}/search-controller-docs/search-naver-r/response-fields.adoc[]

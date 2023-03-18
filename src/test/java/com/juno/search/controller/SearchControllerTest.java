@@ -1,12 +1,10 @@
 package com.juno.search.controller;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
+import com.juno.search.docs.TestSupport;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
 
 import java.nio.charset.StandardCharsets;
@@ -18,12 +16,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @SpringBootTest
 @AutoConfigureMockMvc
-class SearchControllerTest {
-    @Autowired
-    private MockMvc mockMvc;
-
-    private ObjectMapper objectMapper = new ObjectMapper();
-
+class SearchControllerTest extends TestSupport {
     @Test
     @DisplayName("size가 50보다 크면 실패한다. (kakao)")
     void searchFail1() throws Exception {
