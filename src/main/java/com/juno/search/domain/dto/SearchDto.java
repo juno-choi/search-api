@@ -6,6 +6,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.Locale;
+
 @Getter
 @Setter
 @NoArgsConstructor
@@ -17,13 +19,21 @@ public class SearchDto {
     private SearchType type;
 
     public static SearchDto of(SortType sort, int page, int size, String query, SearchType type){
-        /**
-         * TODO
-         * 1. 만약 Naver라면 query를 encode 해주어야 한다.
-         * 2. sort type에 따라 변경해주어야 한다.
-         */
-
         return new SearchDto(sort, page, size, query, type);
+    }
+
+    public static SearchDto of(String sort, int page, int size, String query, String type){
+        SortType sortType = SortType.A;
+        if(sort.toLowerCase(Locale.ROOT).equals("r")){
+            sortType = SortType.R;
+        }
+
+        SearchType searchType = SearchType.KAKAO;
+        if(type.toLowerCase(Locale.ROOT).equals("naver")){
+            searchType = SearchType.NAVER;
+        }
+
+        return new SearchDto(sortType, page, size, query, searchType);
     }
 
     public SearchDto(SortType sort, int page, int size, String query, SearchType type) {

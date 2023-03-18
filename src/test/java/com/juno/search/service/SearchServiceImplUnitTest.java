@@ -51,7 +51,7 @@ class SearchServiceImplUnitTest {
     void init(){
         String baseUrl = String.format("http://localhost:%s", mockWebServer.getPort());
         WebClient webClient = WebClient.create(baseUrl);
-        searchService = new SearchServiceImpl(new SearchClient(mockEnvironment, webClient, objectMapper));
+        searchService = new SearchServiceImpl(new SearchClient(mockEnvironment, webClient));
     }
 
     @Test
@@ -147,6 +147,6 @@ class SearchServiceImplUnitTest {
         IllegalArgumentException ex = assertThrows(IllegalArgumentException.class, () -> searchService.search(searchDto));
 
         //then
-        assertEquals("size와 page는 최대 50 입니다.", ex.getMessage());
+        assertEquals("size와 page는 최소 1, 최대 50 입니다.", ex.getMessage());
     }
 }
