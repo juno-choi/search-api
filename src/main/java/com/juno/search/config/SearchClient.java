@@ -1,6 +1,9 @@
 package com.juno.search.config;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.juno.search.domain.dto.SearchDto;
+import com.juno.search.domain.dto.kakao.BadRequest;
 import com.juno.search.domain.dto.kakao.SearchResponseDto;
 import com.juno.search.domain.dto.naver.NaverSearchResponseDto;
 import com.juno.search.domain.enums.SearchType;
@@ -28,6 +31,7 @@ import static org.springframework.http.HttpHeaders.AUTHORIZATION;
 public class SearchClient {
     private final Environment env;
     private final WebClient webClient;
+    private final ObjectMapper objectMapper;
 
     public SearchVo search(SearchDto search){
         SearchType type = search.getType();
@@ -74,7 +78,7 @@ public class SearchClient {
                     .header(AUTHORIZATION, "KakaoAK " + env.getProperty("api.kakao.key"))
                     .accept(MediaType.APPLICATION_JSON)
                     .retrieve()
-                    .onStatus(HttpStatus::is4xxClientError, response -> Mono.error(IllegalArgumentException::new))
+                    .onStatus(HttpStatus::is4xxClientError, response -> Mono.error(new IllegalArgumentException("size와 page는 최대 50 입니다.")))
                     .onStatus(HttpStatus::is5xxServerError, response -> Mono.error(KakaoServerException::new))
                     .bodyToMono(SearchResponseDto.class)
                     .timeout(Duration.ofMillis(5000))   // 5초 동안 답 없으면 타임아웃

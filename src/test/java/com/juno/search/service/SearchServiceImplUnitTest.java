@@ -3,6 +3,7 @@ package com.juno.search.service;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.juno.search.config.SearchClient;
 import com.juno.search.domain.dto.SearchDto;
+import com.juno.search.domain.dto.kakao.BadRequest;
 import com.juno.search.domain.dto.kakao.Meta;
 import com.juno.search.domain.dto.kakao.SearchResponseDto;
 import com.juno.search.domain.dto.naver.Item;
@@ -24,8 +25,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 @ExtendWith(MockitoExtension.class)
 class SearchServiceImplUnitTest {
@@ -51,7 +51,7 @@ class SearchServiceImplUnitTest {
     void init(){
         String baseUrl = String.format("http://localhost:%s", mockWebServer.getPort());
         WebClient webClient = WebClient.create(baseUrl);
-        searchService = new SearchServiceImpl(new SearchClient(mockEnvironment, webClient));
+        searchService = new SearchServiceImpl(new SearchClient(mockEnvironment, webClient, objectMapper));
     }
 
     @Test
@@ -132,12 +132,21 @@ class SearchServiceImplUnitTest {
     void searchFail1() throws Exception {
         //given
         int size = 60;
-        SearchDto searchDto = SearchDto.of(SortType.A, 1, size, "kakao 서버 터짐", SearchType.KAKAO);
-        mockWebServer.enqueue(new MockResponse().setStatus("HTTP/1.1 400"));
+        SearchDto searchDto = SearchDto.of(SortType.A, 1, size, "사이즈가 너무 큼", SearchType.KAKAO);
+
+        mockWebServer.enqueue(new MockResponse().setStatus("HTTP/1.1 400").setBody(
+                objectMapper.writeValueAsString(
+                        BadRequest.builder()
+                                .errorType("InvalidArgument")
+                                .message("page is more than max")
+                                .build()
+                )
+        ));
 
         //when
-        //then
         IllegalArgumentException ex = assertThrows(IllegalArgumentException.class, () -> searchService.search(searchDto));
 
+        //then
+        assertEquals("size와 page는 최대 50 입니다.", ex.getMessage());
     }
 }
