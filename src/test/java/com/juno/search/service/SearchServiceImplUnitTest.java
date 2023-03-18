@@ -24,6 +24,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @ExtendWith(MockitoExtension.class)
@@ -93,7 +94,7 @@ class SearchServiceImplUnitTest {
 
 
     @Test
-    @DisplayName("kakao로 검색에 실패하면 naver로 반환한다.")
+    @DisplayName("kakao로 검색에 실패하면 naver로 반환에 성공한다.")
     void searchSuccess3() throws Exception {
         //given
         int size = 10;
@@ -124,5 +125,19 @@ class SearchServiceImplUnitTest {
         SearchVo search = searchService.search(searchDto);
         //then
         assertTrue(search.getList().get(0).getTitle().equals("제목 0"));
+    }
+
+    @Test
+    @DisplayName("검색 수치를 넘어가면 실패한다.")
+    void searchFail1() throws Exception {
+        //given
+        int size = 60;
+        SearchDto searchDto = SearchDto.of(SortType.A, 1, size, "kakao 서버 터짐", SearchType.KAKAO);
+        mockWebServer.enqueue(new MockResponse().setStatus("HTTP/1.1 400"));
+
+        //when
+        //then
+        IllegalArgumentException ex = assertThrows(IllegalArgumentException.class, () -> searchService.search(searchDto));
+
     }
 }

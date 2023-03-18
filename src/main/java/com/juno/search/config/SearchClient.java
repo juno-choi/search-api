@@ -6,6 +6,7 @@ import com.juno.search.domain.dto.naver.NaverSearchResponseDto;
 import com.juno.search.domain.enums.SearchType;
 import com.juno.search.domain.vo.DocumentsVo;
 import com.juno.search.domain.vo.SearchVo;
+import com.juno.search.exception.KakaoServerException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.core.env.Environment;
 import org.springframework.http.HttpStatus;
@@ -18,7 +19,6 @@ import java.time.Duration;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
-import java.util.concurrent.TimeoutException;
 import java.util.stream.Collectors;
 
 import static org.springframework.http.HttpHeaders.AUTHORIZATION;
@@ -75,7 +75,7 @@ public class SearchClient {
                     .accept(MediaType.APPLICATION_JSON)
                     .retrieve()
                     .onStatus(HttpStatus::is4xxClientError, response -> Mono.error(IllegalArgumentException::new))
-                    .onStatus(HttpStatus::is5xxServerError, response -> Mono.error(RuntimeException::new))
+                    .onStatus(HttpStatus::is5xxServerError, response -> Mono.error(KakaoServerException::new))
                     .bodyToMono(SearchResponseDto.class)
                     .timeout(Duration.ofMillis(5000))   // 5초 동안 답 없으면 타임아웃
                     .block();
@@ -94,7 +94,7 @@ public class SearchClient {
             return SearchVo.builder()
                     .list(list)
                     .build();
-        }catch (RuntimeException e){
+        }catch (KakaoServerException e){
             return getSearchByNaver(search);
         }
     }
