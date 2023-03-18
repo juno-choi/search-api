@@ -8,14 +8,17 @@ import com.juno.search.domain.vo.DocumentsVo;
 import com.juno.search.domain.vo.SearchVo;
 import lombok.RequiredArgsConstructor;
 import org.springframework.core.env.Environment;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Component;
 import org.springframework.web.reactive.function.client.WebClient;
+import reactor.core.publisher.Mono;
 
 import java.time.Duration;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
+import java.util.concurrent.TimeoutException;
 import java.util.stream.Collectors;
 
 import static org.springframework.http.HttpHeaders.AUTHORIZATION;
@@ -66,28 +69,34 @@ public class SearchClient {
     // 카카오 검색
     private SearchVo getSearchByKakao(SearchDto search) {
         String baseUrl = env.getProperty("api.kakao.url");
-        SearchResponseDto searchResponseDto = webClient.get().uri(baseUrl + getSearchUri(search))
-                .header(AUTHORIZATION, "KakaoAK " + env.getProperty("api.kakao.key"))
-                .accept(MediaType.APPLICATION_JSON)
-                .retrieve()
-                .bodyToMono(SearchResponseDto.class)
-                .timeout(Duration.ofMillis(5000))   // 5초 동안 답 없으면 타임아웃
-                .block();
+        try{
+            SearchResponseDto searchResponseDto = webClient.get().uri(baseUrl + getSearchUri(search))
+                    .header(AUTHORIZATION, "KakaoAK " + env.getProperty("api.kakao.key"))
+                    .accept(MediaType.APPLICATION_JSON)
+                    .retrieve()
+                    .onStatus(HttpStatus::is4xxClientError, response -> Mono.error(IllegalArgumentException::new))
+                    .onStatus(HttpStatus::is5xxServerError, response -> Mono.error(RuntimeException::new))
+                    .bodyToMono(SearchResponseDto.class)
+                    .timeout(Duration.ofMillis(5000))   // 5초 동안 답 없으면 타임아웃
+                    .block();
 
-        List<DocumentsVo> list = searchResponseDto.getDocuments().stream().map(m ->
-                DocumentsVo.builder()
-                        .title(m.getTitle())
-                        .contents(m.getContents())
-                        .url(m.getUrl())
-                        .blogName(m.getBlogname())
-                        .thumbnail(m.getThumbnail())
-                        .datetime(ZonedDateTime.parse(m.getDatetime()).format(DateTimeFormatter.ofPattern("yyyyMMdd")))
-                        .build()
-        ).collect(Collectors.toList());
+            List<DocumentsVo> list = searchResponseDto.getDocuments().stream().map(m ->
+                    DocumentsVo.builder()
+                            .title(m.getTitle())
+                            .contents(m.getContents())
+                            .url(m.getUrl())
+                            .blogName(m.getBlogname())
+                            .thumbnail(m.getThumbnail())
+                            .datetime(ZonedDateTime.parse(m.getDatetime()).format(DateTimeFormatter.ofPattern("yyyyMMdd")))
+                            .build()
+            ).collect(Collectors.toList());
 
-        return SearchVo.builder()
-                .list(list)
-                .build();
+            return SearchVo.builder()
+                    .list(list)
+                    .build();
+        }catch (RuntimeException e){
+            return getSearchByNaver(search);
+        }
     }
 
     private StringBuilder getSearchUri(SearchDto search) {

@@ -5,6 +5,7 @@ import com.juno.search.config.SearchClient;
 import com.juno.search.domain.dto.SearchDto;
 import com.juno.search.domain.dto.kakao.Meta;
 import com.juno.search.domain.dto.kakao.SearchResponseDto;
+import com.juno.search.domain.dto.naver.Item;
 import com.juno.search.domain.dto.naver.NaverSearchResponseDto;
 import com.juno.search.domain.enums.SearchType;
 import com.juno.search.domain.enums.SortType;
@@ -21,6 +22,7 @@ import org.springframework.web.reactive.function.client.WebClient;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -87,5 +89,40 @@ class SearchServiceImplUnitTest {
         SearchVo search = searchService.search(searchDto);
         //then
         assertTrue(search.getList().size() == 0);
+    }
+
+
+    @Test
+    @DisplayName("kakao로 검색에 실패하면 naver로 반환한다.")
+    void searchSuccess3() throws Exception {
+        //given
+        int size = 10;
+        SearchDto searchDto = SearchDto.of(SortType.A, 1, size, "kakao 서버 터짐", SearchType.KAKAO);
+
+        List<Item> items = new ArrayList<>();
+        for(int i=0; i<size; i++){
+            items.add(Item.builder()
+                    .title("제목 "+i)
+                    .bloggerlink("블로그 상세 링크")
+                    .bloggername("블로그명")
+                    .description("내용")
+                    .link("블로그 링크")
+                    .postdate("29991231")
+                    .build());
+        }
+
+        mockWebServer.enqueue(new MockResponse().setStatus("HTTP/1.1 504"));
+        mockWebServer.enqueue(new MockResponse().setBody(
+                objectMapper.writeValueAsString(NaverSearchResponseDto.builder()
+                        .display(size)
+                        .start(1)
+                        .total(0)
+                        .items(items)
+                        .build())
+        ).addHeader(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE));
+        //when
+        SearchVo search = searchService.search(searchDto);
+        //then
+        assertTrue(search.getList().get(0).getTitle().equals("제목 0"));
     }
 }
