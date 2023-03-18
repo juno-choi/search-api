@@ -10,6 +10,13 @@ logging:
     root: info
     com.juno.search: info
 
+api:
+  kakao:
+    key: 5968081cbcbd086f65d5eb198b309e03
+    url: https://dapi.kakao.com/v2/search/blog
+  naver:
+    key:
+
 --- #local
 spring:
   config:
