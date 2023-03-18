@@ -1,9 +1,12 @@
 package com.juno.search.service;
 
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.juno.search.config.SearchClient;
 import com.juno.search.domain.dto.SearchDto;
 import com.juno.search.domain.dto.kakao.SearchResponseDto;
 import com.juno.search.domain.enums.SearchType;
+import com.juno.search.domain.vo.DocumentsVo;
 import com.juno.search.domain.vo.SearchVo;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -20,9 +23,10 @@ import java.util.List;
 public class SearchServiceImpl implements SearchService{
     private final Environment env;
     private final SearchClient searchClient;
+    private final ObjectMapper objectMapper;
 
     @Override
-    public List<SearchVo> search(SearchDto search) {
+    public SearchVo search(SearchDto search) {
         // TODO 다음, 네이버 값에 따라 검색 조건 바꾸기
         String sort = search.getSortByType();
         int page = search.getPage();
@@ -32,6 +36,17 @@ public class SearchServiceImpl implements SearchService{
 
         StringBuilder uriBuilder = getSearchUri(sort, page, size, query, type);
 
+        SearchVo result = null;
+        if(type == SearchType.NAVER){
+
+        }else{
+            result = getSearchByKakao(uriBuilder);
+        }
+
+        return result;
+    }
+
+    private SearchVo getSearchByKakao(StringBuilder uriBuilder) {
         SearchResponseDto searchResponseDto = searchClient.kakaoSearch().get()
                 .uri(uriBuilder.toString())
                 .accept(MediaType.APPLICATION_JSON)
@@ -39,11 +54,12 @@ public class SearchServiceImpl implements SearchService{
                 .bodyToMono(SearchResponseDto.class)
                 .timeout(Duration.ofMillis(5000))   // 5초 동안 답 없으면 타임아웃
                 .blockOptional().orElseThrow(
-                        // TODO 네이버와 다음 익셉션 만들어서 처리해야 함.
-                        () -> new IllegalArgumentException("우선은 이렇게 던짐 추후에 네이버와 다음 따로 분리")
+                        () -> new IllegalArgumentException("검색 내용이 없습니다.")
                 );
-        log.debug(searchResponseDto.toString());
-        return null;
+        List<DocumentsVo> list = objectMapper.convertValue(searchResponseDto.getDocuments(), new TypeReference<List<DocumentsVo>>(){});
+        return SearchVo.builder()
+                .list(list)
+                .build();
     }
 
     private StringBuilder getSearchUri(String sort, int page, int size, String query, SearchType type) {
