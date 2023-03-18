@@ -1,9 +1,8 @@
 package com.juno.search.config;
 
-import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.juno.search.domain.dto.SearchDto;
 import com.juno.search.domain.dto.kakao.SearchResponseDto;
+import com.juno.search.domain.dto.naver.NaverSearchResponseDto;
 import com.juno.search.domain.enums.SearchType;
 import com.juno.search.domain.vo.DocumentsVo;
 import com.juno.search.domain.vo.SearchVo;
@@ -14,7 +13,10 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.reactive.function.client.WebClient;
 
 import java.time.Duration;
+import java.time.ZonedDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import static org.springframework.http.HttpHeaders.AUTHORIZATION;
 
@@ -23,7 +25,6 @@ import static org.springframework.http.HttpHeaders.AUTHORIZATION;
 public class SearchClient {
     private final Environment env;
     private final WebClient webClient;
-    private final ObjectMapper objectMapper;
 
     public SearchVo search(SearchDto search){
         SearchType type = search.getType();
@@ -38,17 +39,25 @@ public class SearchClient {
     // 네이버 검색
     private SearchVo getSearchByNaver(SearchDto search) {
         String baseUrl = env.getProperty("api.naver.url");
-        SearchResponseDto searchResponseDto = webClient.get().uri(baseUrl + getSearchUri(search))
-                .header(AUTHORIZATION, "Naver "+ env.getProperty("api.naver.key"))
+        NaverSearchResponseDto naverSearchResponseDto = webClient.get().uri(baseUrl + getSearchUri(search))
+                .header("X-Naver-Client-Id", env.getProperty("api.naver.id"))
+                .header("X-Naver-Client-Secret", env.getProperty("api.naver.secret"))
                 .accept(MediaType.APPLICATION_JSON)
                 .retrieve()
-                .bodyToMono(SearchResponseDto.class)
-                .timeout(Duration.ofMillis(5000))   // 5초 동안 답 없으면 타임아웃
-                .blockOptional().orElseThrow(
-                        () -> new IllegalArgumentException("검색 내용이 없습니다.")
-                );
+                .bodyToMono(NaverSearchResponseDto.class)
+                .block();
 
-        List<DocumentsVo> list = objectMapper.convertValue(searchResponseDto.getDocuments(), new TypeReference<List<DocumentsVo>>(){});
+        List<DocumentsVo> list = naverSearchResponseDto.getItems().stream().map(m ->
+                DocumentsVo.builder()
+                    .title(m.getTitle())
+                    .contents(m.getDescription())
+                    .url(m.getLink())
+                    .blogName(m.getBloggername())
+                    .thumbnail("")
+                    .datetime(m.getPostdate())
+                    .build()
+        ).collect(Collectors.toList());
+
         return SearchVo.builder()
                 .list(list)
                 .build();
@@ -63,11 +72,19 @@ public class SearchClient {
                 .retrieve()
                 .bodyToMono(SearchResponseDto.class)
                 .timeout(Duration.ofMillis(5000))   // 5초 동안 답 없으면 타임아웃
-                .blockOptional().orElseThrow(
-                        () -> new IllegalArgumentException("검색 내용이 없습니다.")
-                );
+                .block();
 
-        List<DocumentsVo> list = objectMapper.convertValue(searchResponseDto.getDocuments(), new TypeReference<List<DocumentsVo>>(){});
+        List<DocumentsVo> list = searchResponseDto.getDocuments().stream().map(m ->
+                DocumentsVo.builder()
+                        .title(m.getTitle())
+                        .contents(m.getContents())
+                        .url(m.getUrl())
+                        .blogName(m.getBlogname())
+                        .thumbnail(m.getThumbnail())
+                        .datetime(ZonedDateTime.parse(m.getDatetime()).format(DateTimeFormatter.ofPattern("yyyyMMdd")))
+                        .build()
+        ).collect(Collectors.toList());
+
         return SearchVo.builder()
                 .list(list)
                 .build();
@@ -91,7 +108,14 @@ public class SearchClient {
             uriBuilder.append("&query=");
             uriBuilder.append(query);
         }else if(type == SearchType.NAVER){
-
+            uriBuilder.append("?query=");
+            uriBuilder.append(query);
+            uriBuilder.append("&sort=");
+            uriBuilder.append(sort);
+            uriBuilder.append("&start=");
+            uriBuilder.append(page);
+            uriBuilder.append("&size=");
+            uriBuilder.append(size);
         }
         return uriBuilder;
     }

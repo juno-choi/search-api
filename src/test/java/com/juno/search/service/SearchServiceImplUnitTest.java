@@ -5,6 +5,7 @@ import com.juno.search.config.SearchClient;
 import com.juno.search.domain.dto.SearchDto;
 import com.juno.search.domain.dto.kakao.Meta;
 import com.juno.search.domain.dto.kakao.SearchResponseDto;
+import com.juno.search.domain.dto.naver.NaverSearchResponseDto;
 import com.juno.search.domain.enums.SearchType;
 import com.juno.search.domain.enums.SortType;
 import com.juno.search.domain.vo.SearchVo;
@@ -47,11 +48,11 @@ class SearchServiceImplUnitTest {
     void init(){
         String baseUrl = String.format("http://localhost:%s", mockWebServer.getPort());
         WebClient webClient = WebClient.create(baseUrl);
-        searchService = new SearchServiceImpl(new SearchClient(mockEnvironment, webClient, objectMapper));
+        searchService = new SearchServiceImpl(new SearchClient(mockEnvironment, webClient));
     }
 
     @Test
-    @DisplayName("검색되지 않는 내용일 경우에도 성공한다.")
+    @DisplayName("검색되지 않는 내용일 경우에도 성공한다. (kakao)")
     void searchSuccess1() throws Exception {
         //given
         SearchDto searchDto = SearchDto.of(SortType.A, 1, 10, "검색 내용이 존재하지 않는 문구", SearchType.KAKAO);
@@ -60,6 +61,26 @@ class SearchServiceImplUnitTest {
                 objectMapper.writeValueAsString(SearchResponseDto.builder()
                         .documents(new ArrayList<>())
                         .meta(new Meta(0,0,true))
+                        .build())
+        ).addHeader(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE));
+        //when
+        SearchVo search = searchService.search(searchDto);
+        //then
+        assertTrue(search.getList().size() == 0);
+    }
+
+    @Test
+    @DisplayName("검색되지 않는 내용일 경우에도 성공한다. (naver)")
+    void searchSuccess2() throws Exception {
+        //given
+        SearchDto searchDto = SearchDto.of(SortType.A, 1, 10, "검색 내용이 존재하지 않는 문구", SearchType.NAVER);
+
+        mockWebServer.enqueue(new MockResponse().setBody(
+                objectMapper.writeValueAsString(NaverSearchResponseDto.builder()
+                        .display(10)
+                        .start(1)
+                        .total(0)
+                        .items(new ArrayList<>())
                         .build())
         ).addHeader(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE));
         //when
