@@ -47,7 +47,7 @@ public class SearchClient {
                 .header("X-Naver-Client-Secret", env.getProperty("api.naver.secret"))
                 .accept(MediaType.APPLICATION_JSON)
                 .retrieve()
-                .onStatus(HttpStatus::is4xxClientError, response -> Mono.error(new IllegalArgumentException("size와 page는 최소 1, 최대 50 입니다.")))
+                .onStatus(HttpStatus::is4xxClientError, response -> Mono.error(new IllegalArgumentException("size 1~100 page 1~1000 입니다.")))
                 .bodyToMono(NaverSearchResponseDto.class)
                 .block();
 
@@ -77,7 +77,7 @@ public class SearchClient {
                     .header(AUTHORIZATION, "KakaoAK " + env.getProperty("api.kakao.key"))
                     .accept(MediaType.APPLICATION_JSON)
                     .retrieve()
-                    .onStatus(HttpStatus::is4xxClientError, response -> Mono.error(new IllegalArgumentException("size와 page는 최소 1, 최대 50 입니다.")))
+                    .onStatus(HttpStatus::is4xxClientError, response -> Mono.error(new IllegalArgumentException("size, page 1~50 입니다.")))
                     .onStatus(HttpStatus::is5xxServerError, response -> Mono.error(KakaoServerException::new))
                     .bodyToMono(SearchResponseDto.class)
                     .timeout(Duration.ofMillis(5000))   // 5초 동안 답 없으면 타임아웃
@@ -128,7 +128,7 @@ public class SearchClient {
             uriBuilder.append(sort);
             uriBuilder.append("&start=");
             uriBuilder.append(page);
-            uriBuilder.append("&size=");
+            uriBuilder.append("&display=");
             uriBuilder.append(size);
         }
         return uriBuilder;

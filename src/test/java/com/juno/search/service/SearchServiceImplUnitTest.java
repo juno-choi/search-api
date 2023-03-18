@@ -7,6 +7,7 @@ import com.juno.search.domain.dto.kakao.BadRequest;
 import com.juno.search.domain.dto.kakao.Meta;
 import com.juno.search.domain.dto.kakao.SearchResponseDto;
 import com.juno.search.domain.dto.naver.Item;
+import com.juno.search.domain.dto.naver.NaverBadRequest;
 import com.juno.search.domain.dto.naver.NaverSearchResponseDto;
 import com.juno.search.domain.enums.SearchType;
 import com.juno.search.domain.enums.SortType;
@@ -128,11 +129,32 @@ class SearchServiceImplUnitTest {
     }
 
     @Test
-    @DisplayName("검색 수치를 넘어가면 실패한다.")
+    @DisplayName("size가 50을 넘으면 실패한다. (kakao)")
     void searchFail1() throws Exception {
         //given
-        int size = 60;
-        SearchDto searchDto = SearchDto.of(SortType.A, 1, size, "사이즈가 너무 큼", SearchType.KAKAO);
+        SearchDto searchDto = SearchDto.of(SortType.A, 1, 51, "사이즈가 너무 큼", SearchType.KAKAO);
+
+        mockWebServer.enqueue(new MockResponse().setStatus("HTTP/1.1 400").setBody(
+                objectMapper.writeValueAsString(
+                        BadRequest.builder()
+                                .errorType("InvalidArgument")
+                                .message("size is more than max")
+                                .build()
+                )
+        ));
+
+        //when
+        IllegalArgumentException ex = assertThrows(IllegalArgumentException.class, () -> searchService.search(searchDto));
+
+        //then
+        assertEquals("size, page 1~50 입니다.", ex.getMessage());
+    }
+
+    @Test
+    @DisplayName("page가 50을 넘으면 실패한다. (kakao)")
+    void searchFail2() throws Exception {
+        //given
+        SearchDto searchDto = SearchDto.of(SortType.A, 51, 10, "사이즈가 너무 큼", SearchType.KAKAO);
 
         mockWebServer.enqueue(new MockResponse().setStatus("HTTP/1.1 400").setBody(
                 objectMapper.writeValueAsString(
@@ -147,6 +169,50 @@ class SearchServiceImplUnitTest {
         IllegalArgumentException ex = assertThrows(IllegalArgumentException.class, () -> searchService.search(searchDto));
 
         //then
-        assertEquals("size와 page는 최소 1, 최대 50 입니다.", ex.getMessage());
+        assertEquals("size, page 1~50 입니다.", ex.getMessage());
+    }
+
+    @Test
+    @DisplayName("size가 100을 넘으면 실패한다. (naver)")
+    void searchFail3() throws Exception {
+        //given
+        SearchDto searchDto = SearchDto.of(SortType.A, 1, 101, "사이즈가 너무 큼", SearchType.NAVER);
+
+        mockWebServer.enqueue(new MockResponse().setStatus("HTTP/1.1 400").setBody(
+                objectMapper.writeValueAsString(
+                        NaverBadRequest.builder()
+                                .errorMessage("Invalid display value (부적절한 display 값입니다.)")
+                                .errorCode("SE02")
+                                .build()
+                )
+        ));
+
+        //when
+        IllegalArgumentException ex = assertThrows(IllegalArgumentException.class, () -> searchService.search(searchDto));
+
+        //then
+        assertEquals("size 1~100 page 1~1000 입니다.", ex.getMessage());
+    }
+
+    @Test
+    @DisplayName("page가 1000을 넘으면 실패한다. (naver)")
+    void searchFail4() throws Exception {
+        //given
+        SearchDto searchDto = SearchDto.of(SortType.A, 1001, 10, "사이즈가 너무 큼", SearchType.NAVER);
+
+        mockWebServer.enqueue(new MockResponse().setStatus("HTTP/1.1 400").setBody(
+                objectMapper.writeValueAsString(
+                        NaverBadRequest.builder()
+                                .errorMessage("Invalid display value (부적절한 display 값입니다.)")
+                                .errorCode("SE02")
+                                .build()
+                )
+        ));
+
+        //when
+        IllegalArgumentException ex = assertThrows(IllegalArgumentException.class, () -> searchService.search(searchDto));
+
+        //then
+        assertEquals("size 1~100 page 1~1000 입니다.", ex.getMessage());
     }
 }
