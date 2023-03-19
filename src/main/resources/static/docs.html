@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="generator" content="Asciidoctor 2.0.16">
-<title>👏 search API</title>
+<title>공통</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
 <style>
 /*! Asciidoctor default stylesheet | MIT License | https://asciidoctor.org */
@@ -440,9 +440,18 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </head>
 <body class="book toc2 toc-left">
 <div id="header">
-<h1>👏 search API</h1>
+<h1>공통</h1>
 <div id="toc" class="toc2">
 <div id="toctitle">search api</div>
+<ul class="sectlevel1">
+<li><a href="#_공통_반환">공통 반환</a>
+<ul class="sectlevel2">
+<li><a href="#_success">✅ Success</a></li>
+<li><a href="#_error">✅ Error</a></li>
+<li><a href="#_code">✅ code</a></li>
+</ul>
+</li>
+<li><a href="#_search_api">👏 search API</a>
 <ul class="sectlevel1">
 <li><a href="#_검색">📗 검색</a>
 <ul class="sectlevel2">
@@ -453,9 +462,130 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </ul>
 </li>
 </ul>
+</li>
+</ul>
 </div>
 </div>
 <div id="content">
+<div class="sect1">
+<h2 id="_공통_반환"><a class="link" href="#_공통_반환">공통 반환</a></h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_success"><a class="link" href="#_success">✅ Success</a></h3>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-json hljs" data-lang="json">{
+  "code" : "결과 코드",
+  "message" : "결과 메세지",
+  "data" : { }
+}</code></pre>
+</div>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 33.3333%;">
+<col style="width: 33.3333%;">
+<col style="width: 33.3334%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">필드명</th>
+<th class="tableblock halign-left valign-top">타입</th>
+<th class="tableblock halign-left valign-top">설명</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">code</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">String</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">정상 코드</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">message</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">String</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">성공 메세지</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">data</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Object</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">반환 데이터</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect2">
+<h3 id="_error"><a class="link" href="#_error">✅ Error</a></h3>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-json hljs" data-lang="json">{
+  "code" : "결과 코드",
+  "message" : "실패 메세지",
+  "errors" : [
+      {}, {}, {} ...
+  ]
+}</code></pre>
+</div>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 33.3333%;">
+<col style="width: 33.3333%;">
+<col style="width: 33.3334%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">필드명</th>
+<th class="tableblock halign-left valign-top">타입</th>
+<th class="tableblock halign-left valign-top">설명</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">code</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">String</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">에러 코드</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">errors</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Object[]</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">에러 처리를 위한 데이터</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect2">
+<h3 id="_code"><a class="link" href="#_code">✅ code</a></h3>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 33.3333%;">
+<col style="width: 33.3333%;">
+<col style="width: 33.3334%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">결과 코드</th>
+<th class="tableblock halign-left valign-top">타입</th>
+<th class="tableblock halign-left valign-top">설명</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">SUCCESS</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">String</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">정상/성공</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">FAIL</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">String</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">실패</p></td>
+</tr>
+</tbody>
+</table>
+<hr>
+</div>
+</div>
+</div>
+<h1 id="_search_api" class="sect0"><a class="link" href="#_search_api">👏 search API</a></h1>
 <div class="sect1">
 <h2 id="_검색"><a class="link" href="#_검색">📗 검색</a></h2>
 <div class="sectionbody">
@@ -735,7 +865,7 @@ Host: 127.0.0.1</code></pre>
 <div class="content">
 <pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">HTTP/1.1 200 OK
 Content-Type: application/json;charset=UTF-8
-Content-Length: 7699
+Content-Length: 7635
 
 {
   "code" : "SUCCESS",
@@ -744,6 +874,20 @@ Content-Length: 7699
     "from" : "KAKAO",
     "list_size" : 10,
     "list" : [ {
+      "title" : "주간 미국증시 시황 정리[3/13~3/17] (feat. 환율, 금, 구리, 유가, 채권)",
+      "contents" : "Republic &lt;b&gt;Bank&lt;/b&gt; 위기에 대형은행 등 11개 은행에서 30bil 달러 지원 소식 등으로 증시는 환호. 스위스 중앙은행이 Credit Suisse에 대한 54bil달러 수준의 loan 지원 방안에 안도. 유럽 중앙은행의 0.5% 빅스텝 단행. 빅테크, 반도체 섹터의 강세. ​ ​- 금요일 : 3대지수 중 모두 하락. 대형은행들의 30bil 달러 지원에도...",
+      "url" : "https://blog.naver.com/jjangtg1/223048947342",
+      "blog_name" : "호빵먹는 부자",
+      "thumbnail" : "https://search4.kakaocdn.net/argon/130x130_85_c/3gFx6uBkaqu",
+      "datetime" : "20230319"
+    }, {
+      "title" : "디지털화폐 CBDC 관련주 12 종목 정리",
+      "contents" : "한국컴퓨터, &lt;b&gt;카카오&lt;/b&gt;페이 종목이 있습니다. 관련주가 된 이유와 기업소개입니다. 중앙은행이 만드는 디지털 화폐, 이걸 줄여서 영어로는 CBDC(Central &lt;b&gt;Bank&lt;/b&gt; Digital Currency)라고 합니다. 가상화폐에 쓰이는 블록체인 기술을 활용해서 중앙은행이 만들기 때문에 그 가치가 크게 오르내리지 않고, 무엇보다 믿을 수...",
+      "url" : "http://bluesh.tistory.com/141",
+      "blog_name" : "푸른하늘동산",
+      "thumbnail" : "https://search2.kakaocdn.net/argon/130x130_85_c/IsFKGCsdlYq",
+      "datetime" : "20230319"
+    }, {
       "title" : "실리콘 밸리 뱅크 사태와 트위터 | SVB | Twitter | SNS",
       "contents" : "REGIONAL &lt;b&gt;BANK&lt;/b&gt; DEMANDING THEIR MONEY - MOST WILL NOT GET IT.&amp;#34;이라는 트윗을 올렸습니다. 모두 대중들을 패닉으로 밀어 넣을만한 내용들입니다. 은행이 도산할 것이니 당장 은행으로 달려가서 맡겨둔 돈을 인출하라는 내용이니까요. 조금이라도 늦으면 돈을 못 찾게 되리라는 두려움이 들 수밖에 없습니다. 미 정부도...",
       "url" : "http://rayshines.tistory.com/667",
@@ -798,20 +942,6 @@ Content-Length: 7699
       "url" : "https://blog.naver.com/g2investor/223048538343",
       "blog_name" : "G2 글로벌투자",
       "thumbnail" : "https://search4.kakaocdn.net/argon/130x130_85_c/IqqtkAEvUMW",
-      "datetime" : "20230318"
-    }, {
-      "title" : "2023. 3. 18 (토) 블록체인 뉴스 모음",
-      "contents" : "BTFP(&lt;b&gt;Bank&lt;/b&gt; Term Funding Program) 도구가 직접적인 양적완화는 아니지만 연준은 기본적으로 은행 시스템에 유동성을 주입하고 있다. 중국도 은행 지급준비율을 낮춰 유동성을 추가하고 있다. 때문에 본질적으로 지금 시장 상승은 분위기가 주도하는 움직임이다. (CNBC) ​ 일본 암호화폐 기업 비트뱅크 분석가 하세가와...",
-      "url" : "https://blog.naver.com/heritage_blocks/223048489901",
-      "blog_name" : "HERITAGE BLOCKS 블록체인 암호화폐",
-      "thumbnail" : "https://search3.kakaocdn.net/argon/130x130_85_c/3uP8jm62QD5",
-      "datetime" : "20230318"
-    }, {
-      "title" : "새로 밝혀진 &amp;#39;추녀 공작&amp;#39; 계보학과 레오나르도 다 빈치 -- 소전 서림 발표문 예비 자료",
-      "contents" : "있음) ​ ​ 정병선 옮김/********@*****.*** ​ \uD83C\uDF67 블로그를 후원하세요. 국민은행 ***-**-****-***(정병선, Pyong Son Chong), SWIFT Code: (KOOK MIN &lt;b&gt;BANK&lt;/b&gt;) CZNBKRSEXXX. &lt;b&gt;카카오&lt;/b&gt;뱅크(3333-05-8997468:정병선)로도 후원할 수 있어요. ​ 장건은 언젠가는 탈출해 서역에 가고야 말겠다는 일념으로 무제가 사신의 징표(sumbolon...",
-      "url" : "https://blog.naver.com/sumbolon/223048291118",
-      "blog_name" : "SUMBOLON",
-      "thumbnail" : "https://search1.kakaocdn.net/argon/130x130_85_c/AaiXwGVQ1BO",
       "datetime" : "20230318"
     } ]
   }
@@ -1165,7 +1295,7 @@ Host: 127.0.0.1</code></pre>
 <div class="content">
 <pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">HTTP/1.1 200 OK
 Content-Type: application/json;charset=UTF-8
-Content-Length: 5633
+Content-Length: 5589
 
 {
   "code" : "SUCCESS",
@@ -1174,6 +1304,13 @@ Content-Length: 5633
     "from" : "NAVER",
     "list_size" : 10,
     "list" : [ {
+      "title" : "주간 미국증시 시황 정리[3/13~3/17] (feat. 환율, 금, 구리... ",
+      "contents" : "SVB 및 Signature &lt;b&gt;Bank&lt;/b&gt; 사태에도 나름 선방. 미국 정부의 예금자 보호 등 긴급 조치를 했으나... 카카오 뷰 바로가기 http://pf.&lt;b&gt;kakao&lt;/b&gt;.com/_nyFcxb 글이 도움이 되셨다면 네이버 인플루언서... ",
+      "url" : "https://blog.naver.com/jjangtg1/223048947342",
+      "blog_name" : "호빵먹는 부자",
+      "thumbnail" : "",
+      "datetime" : "20230319"
+    }, {
       "title" : "[부자되자]사토시 코어코인 에어드랍 200만개한정!! 서두르세요",
       "contents" : "● 최신 블록 보상 마이닝 앱 - USDT, USDC &amp;amp; BUSD와 같은 스테이블 코인이 될 CBDC (Central &lt;b&gt;Bank&lt;/b&gt; Digital... https://open.&lt;b&gt;kakao&lt;/b&gt;.com/o/g4r7Igaf ● 채굴정보 1) 1시간마다 1블록 생성(Max 25 블록) * 꽉차기 전에 1일 1회... ",
       "url" : "https://blog.naver.com/fevergzzonik/223048842368",
@@ -1202,13 +1339,6 @@ Content-Length: 5633
       "thumbnail" : "",
       "datetime" : "20230318"
     }, {
-      "title" : "&amp;lt; 베트남 시장조사 &amp;amp; 분석 &amp;gt; 일본 SMBC - VPBank 15% 인수",
-      "contents" : "Commercial &lt;b&gt;Bank&lt;/b&gt; - VPBank | VietstockFinance * VPBank의 최근 1년 주식가 변동 : ................. * 상담신청 : https://forms.gle/mbJSZvvuQSgSQTEV9 * 이메일 보내기 : ***********@*****.*** * Youtube 채널... ",
-      "url" : "https://blog.naver.com/open_library/223047573679",
-      "blog_name" : "OPEN LIBRARY CONSULTING",
-      "thumbnail" : "",
-      "datetime" : "20230318"
-    }, {
       "title" : "부동산개발사업과 PF",
       "contents" : "(agent &lt;b&gt;bank&lt;/b&gt;)은 위탁받은 사무에 관하여 참여은행과 위임관계에 있다 이 경우 구체적인 위임사무의... 금융 문의하기 https://naver.me/GgOCyZCp 1:1 오픈카카오톡으로 부동산금융 문의하기 https://open.&lt;b&gt;kakao&lt;/b&gt;.com/o/s3NBhFS",
       "url" : "https://blog.naver.com/qkqpzb00/223048076972",
@@ -1230,17 +1360,17 @@ Content-Length: 5633
       "thumbnail" : "",
       "datetime" : "20230317"
     }, {
-      "title" : "[홍콩 대학 소개] HKUST, Hong Kong University of... ",
-      "contents" : "Morgan -Standard Chartered &lt;b&gt;Bank&lt;/b&gt; -McKinsey &amp;amp; Company -Boston Consulting Group -The Hong Kong Jockey Club -The Hong... 배너 혹은 아래의 링크를 누르시면 카카오톡 채널로 연결됩니다. https://pf.&lt;b&gt;kakao&lt;/b&gt;.com/_yqBxls",
-      "url" : "https://blog.naver.com/veritas_consulting_s/223047585283",
-      "blog_name" : "베리타스 싱가포르 홍콩 유학",
-      "thumbnail" : "",
-      "datetime" : "20230317"
-    }, {
       "title" : "퍼스트리퍼블릭뱅크,미11대은행 돈모아 금융구제, SVB CS이어... ",
       "contents" : "GSIB(global systemically important &lt;b&gt;bank&lt;/b&gt;)에 포함되어 국제금융상의 주요 은행으로 분리되고 있는 은행의... 를 연구하고 있습니다. 아래의 채널로 접속하여 주십시오. https://open.&lt;b&gt;kakao&lt;/b&gt;.com/o/gwoEZP9e",
       "url" : "https://blog.naver.com/multimillionaire9999/223047472744",
       "blog_name" : "realet",
+      "thumbnail" : "",
+      "datetime" : "20230317"
+    }, {
+      "title" : "SKY대학은 이제 삼성,현대,SK, LG 대학과 경쟁해야할 지도... ",
+      "contents" : "&lt;b&gt;Kakao&lt;/b&gt; Univ. 등과 경쟁해야 할 것 같습니다. . 우리 조직들은 이런 변화에... The apprenticeship would leave her with a two-year degree, money in the &lt;b&gt;bank&lt;/b&gt; and training in... ",
+      "url" : "https://blog.naver.com/leejieun78/223047053652",
+      "blog_name" : "진리의 세상 읽기",
       "thumbnail" : "",
       "datetime" : "20230317"
     } ]
@@ -1324,7 +1454,7 @@ Content-Length: 5633
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2023-03-19 01:45:35 +0900
+Last updated 2023-03-19 09:05:52 +0900
 </div>
 </div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.3/highlight.min.js"></script>

@@ -8,6 +8,83 @@ endif::[]
 :source-highlighter: highlightjs
 :sectlinks:
 
+
+= 공통
+
+== 공통 반환
+
+=== ✅ Success
+
+[source,json]
+----
+{
+  "code" : "결과 코드",
+  "message" : "결과 메세지",
+  "data" : { }
+}
+----
+
+[cols=3*, options=header]
+|===
+|필드명|타입|설명
+
+|code
+|String
+|정상 코드
+
+|message
+|String
+|성공 메세지
+
+|data
+|Object
+|반환 데이터
+|===
+
+=== ✅ Error
+
+[source,json]
+----
+{
+  "code" : "결과 코드",
+  "message" : "실패 메세지",
+  "errors" : [
+      {}, {}, {} ...
+  ]
+}
+----
+
+[cols=3*, options=header]
+|===
+|필드명|타입|설명
+
+|code
+|String
+|에러 코드
+
+|errors
+|Object[]
+|에러 처리를 위한 데이터
+|===
+
+=== ✅ code
+[cols=3*, options=header]
+|===
+|결과 코드|타입|설명
+
+|SUCCESS
+|String
+|정상/성공
+
+|FAIL
+|String
+|실패
+|===
+
+
+---
+
+
 = 👏 search API
 
 == 📗 검색
