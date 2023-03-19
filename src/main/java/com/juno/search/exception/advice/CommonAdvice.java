@@ -22,7 +22,7 @@ public class CommonAdvice {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(
                 ApiError.builder()
                         .code("FAIL")
-                        .message("실패")
+                        .message("잘못된 입력입니다.")
                         .errors(errors)
                         .build()
         );
@@ -42,7 +42,7 @@ public class CommonAdvice {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(
                 ApiError.builder()
                         .code("FAIL")
-                        .message("실패")
+                        .message("parameter 필수 값을 확인해 주세요.")
                         .errors(errors)
                         .build()
         );
