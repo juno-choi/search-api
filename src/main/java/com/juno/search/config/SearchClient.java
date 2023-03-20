@@ -5,7 +5,7 @@ import com.juno.search.domain.dto.kakao.SearchResponseDto;
 import com.juno.search.domain.dto.naver.NaverSearchResponseDto;
 import com.juno.search.domain.enums.SearchType;
 import com.juno.search.domain.vo.DocumentsVo;
-import com.juno.search.domain.vo.SearchVo;
+import com.juno.search.domain.vo.SearchListVo;
 import com.juno.search.exception.KakaoServerException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.core.env.Environment;
@@ -29,7 +29,7 @@ public class SearchClient {
     private final Environment env;
     private final WebClient webClient;
 
-    public SearchVo search(SearchDto search){
+    public SearchListVo search(SearchDto search){
         SearchType type = search.getType();
 
         if(type == SearchType.NAVER){
@@ -40,7 +40,7 @@ public class SearchClient {
     }
 
     // 네이버 검색
-    private SearchVo getSearchByNaver(SearchDto search) {
+    private SearchListVo getSearchByNaver(SearchDto search) {
         String baseUrl = env.getProperty("api.naver.url");
         NaverSearchResponseDto naverSearchResponseDto = webClient.get().uri(baseUrl + getSearchUri(search))
                 .header("X-Naver-Client-Id", env.getProperty("api.naver.id"))
@@ -62,7 +62,7 @@ public class SearchClient {
                     .build()
         ).collect(Collectors.toList());
 
-        return SearchVo.builder()
+        return SearchListVo.builder()
                 .from("NAVER")
                 .listSize(list.size())
                 .list(list)
@@ -70,7 +70,7 @@ public class SearchClient {
     }
 
     // 카카오 검색
-    private SearchVo getSearchByKakao(SearchDto search) {
+    private SearchListVo getSearchByKakao(SearchDto search) {
         String baseUrl = env.getProperty("api.kakao.url");
         try{
             SearchResponseDto searchResponseDto = webClient.get().uri(baseUrl + getSearchUri(search))
@@ -94,7 +94,7 @@ public class SearchClient {
                             .build()
             ).collect(Collectors.toList());
 
-            return SearchVo.builder()
+            return SearchListVo.builder()
                     .from("KAKAO")
                     .listSize(list.size())
                     .list(list)

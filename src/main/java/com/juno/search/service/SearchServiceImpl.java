@@ -3,15 +3,19 @@ package com.juno.search.service;
 import com.juno.search.config.SearchClient;
 import com.juno.search.domain.dto.SearchDto;
 import com.juno.search.domain.entity.Search;
+import com.juno.search.domain.vo.SearchListVo;
 import com.juno.search.domain.vo.SearchVo;
+import com.juno.search.domain.vo.TopSearchVo;
 import com.juno.search.repository.SearchRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.Locale;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -23,14 +27,30 @@ public class SearchServiceImpl implements SearchService{
 
     @Override
     @Transactional
-    public SearchVo search(SearchDto search) {
+    public SearchListVo search(SearchDto search) {
         String keyword = search.getQuery().trim().toLowerCase(Locale.ROOT);
 
         Optional<Search> findSearch = searchRepository.findByKeyword(keyword);
         saveSearch(keyword, findSearch);
 
-        SearchVo searchVo = searchClient.search(search);
-        return searchVo;
+        SearchListVo searchListVo = searchClient.search(search);
+        return searchListVo;
+    }
+
+    @Override
+    public TopSearchVo topSearch() {
+        List<Search> top10ByOrderByCountDesc = searchRepository.findTop10ByOrderByCountDesc();
+
+        List<SearchVo> list = top10ByOrderByCountDesc.stream().map(m ->
+                SearchVo.builder()
+                        .keyword(m.getKeyword())
+                        .count(m.getCount())
+                        .build()
+        ).collect(Collectors.toList());
+
+        return TopSearchVo.builder()
+                .list(list)
+                .build();
     }
 
     private void saveSearch(String keyword, Optional<Search> findSearch) {

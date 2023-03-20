@@ -4,7 +4,8 @@ import com.juno.search.domain.dto.SearchDto;
 import com.juno.search.domain.entity.Search;
 import com.juno.search.domain.enums.SearchType;
 import com.juno.search.domain.enums.SortType;
-import com.juno.search.domain.vo.SearchVo;
+import com.juno.search.domain.vo.SearchListVo;
+import com.juno.search.domain.vo.TopSearchVo;
 import com.juno.search.repository.SearchRepository;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -14,7 +15,10 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.HashMap;
 import java.util.Locale;
+import java.util.Map;
+import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -35,7 +39,7 @@ class SearchServiceImplTest {
         SearchDto searchDto = SearchDto.of(SortType.A, 1, 10, "카카오", SearchType.KAKAO);
 
         //when
-        SearchVo search = searchService.search(searchDto);
+        SearchListVo search = searchService.search(searchDto);
 
         //then
         assertNotNull(search.getList());
@@ -49,7 +53,7 @@ class SearchServiceImplTest {
         SearchDto searchDto = SearchDto.of(SortType.R, 1, 10, "카카오", SearchType.KAKAO);
 
         //when
-        SearchVo search = searchService.search(searchDto);
+        SearchListVo search = searchService.search(searchDto);
 
         //then
         LocalDate parse1 = LocalDate.parse(search.getList().get(0).getDatetime(), DateTimeFormatter.ofPattern("yyyyMMdd"));
@@ -65,7 +69,7 @@ class SearchServiceImplTest {
         SearchDto searchDto = SearchDto.of(SortType.A, 1, 10, "네이버", SearchType.NAVER);
 
         //when
-        SearchVo search = searchService.search(searchDto);
+        SearchListVo search = searchService.search(searchDto);
 
         //then
         assertNotNull(search.getList());
@@ -78,7 +82,7 @@ class SearchServiceImplTest {
         SearchDto searchDto = SearchDto.of(SortType.R, 1, 10, "네이버", SearchType.NAVER);
 
         //when
-        SearchVo search = searchService.search(searchDto);
+        SearchListVo search = searchService.search(searchDto);
 
         //then
         LocalDate parse1 = LocalDate.parse(search.getList().get(0).getDatetime(), DateTimeFormatter.ofPattern("yyyyMMdd"));
@@ -122,5 +126,34 @@ class SearchServiceImplTest {
         //then
         int count = searchRepository.findByKeyword(keyword).get().getCount();
         assertEquals(6, count);
+    }
+
+    @Test
+    @DisplayName("top10 조회에 성공한다.")
+    @Transactional
+    void topSearch() throws Exception {
+        //given
+        String top1 = "최준호";
+        Map<String, Integer> map = new HashMap<>();
+        map.put(top1, 10000);
+        map.put("kakao", 123);
+        map.put("naver", 1234);
+        map.put("juno", 1);
+        map.put("Spring", 133);
+        map.put("api", 101);
+        map.put("java", 122);
+        map.put("kotlin", 332);
+        map.put("kopring", 4441);
+
+        Set<String> keys = map.keySet();
+        for(String key : keys){
+            searchRepository.save(Search.of(key, map.get(key)));
+        }
+
+        //when
+        TopSearchVo topSearchVo = searchService.topSearch();
+
+        //then
+        assertEquals(topSearchVo.getList().get(0).getKeyword(), top1);
     }
 }

@@ -4,10 +4,11 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 
+import java.util.List;
+
 @Getter
-@AllArgsConstructor
 @Builder
-public class SearchVo {
-    private String keyword;
-    private int count;
+@AllArgsConstructor
+public class TopSearchVo {
+    private List<SearchVo> list;
 }

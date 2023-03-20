@@ -11,7 +11,7 @@ import com.juno.search.domain.dto.naver.NaverBadRequest;
 import com.juno.search.domain.dto.naver.NaverSearchResponseDto;
 import com.juno.search.domain.enums.SearchType;
 import com.juno.search.domain.enums.SortType;
-import com.juno.search.domain.vo.SearchVo;
+import com.juno.search.domain.vo.SearchListVo;
 import com.juno.search.repository.SearchRepository;
 import okhttp3.mockwebserver.MockResponse;
 import okhttp3.mockwebserver.MockWebServer;
@@ -73,7 +73,7 @@ class SearchServiceImplUnitTest {
                         .build())
         ).addHeader(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE));
         //when
-        SearchVo search = searchService.search(searchDto);
+        SearchListVo search = searchService.search(searchDto);
         //then
         assertTrue(search.getList().size() == 0);
     }
@@ -93,7 +93,7 @@ class SearchServiceImplUnitTest {
                         .build())
         ).addHeader(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE));
         //when
-        SearchVo search = searchService.search(searchDto);
+        SearchListVo search = searchService.search(searchDto);
         //then
         assertTrue(search.getList().size() == 0);
     }
@@ -128,7 +128,7 @@ class SearchServiceImplUnitTest {
                         .build())
         ).addHeader(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE));
         //when
-        SearchVo search = searchService.search(searchDto);
+        SearchListVo search = searchService.search(searchDto);
         //then
         assertTrue(search.getList().get(0).getTitle().equals("제목 0"));
     }

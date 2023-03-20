@@ -1,7 +1,7 @@
 package com.juno.search.controller;
 
 import com.juno.search.domain.dto.SearchDto;
-import com.juno.search.domain.vo.SearchVo;
+import com.juno.search.domain.vo.SearchListVo;
 import com.juno.search.domain.vo.api.ApiResponse;
 import com.juno.search.service.SearchService;
 import lombok.RequiredArgsConstructor;
@@ -18,7 +18,7 @@ public class SearchController {
     private final SearchService searchService;
 
     @GetMapping("")
-    public ResponseEntity<ApiResponse<SearchVo>> search(
+    public ResponseEntity<ApiResponse<SearchListVo>> search(
             @RequestParam(name = "sort", required = false, defaultValue = "a") String sort,
             @RequestParam(name = "page", required = false, defaultValue = "1") int page,
             @RequestParam(name = "size", required = false, defaultValue = "10") int size,
@@ -26,7 +26,7 @@ public class SearchController {
             @RequestParam(name = "type", required = false, defaultValue = "kakao") String type
     ){
         return ResponseEntity.ok(
-                ApiResponse.<SearchVo>builder()
+                ApiResponse.<SearchListVo>builder()
                         .code("SUCCESS")
                         .message("정상")
                         .data(searchService.search(SearchDto.of(sort, page, size, query, type)))

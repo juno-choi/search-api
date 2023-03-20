@@ -22,7 +22,7 @@ public class Search {
     private LocalDateTime modifiedAt;
     private LocalDateTime createdAt;
 
-    public Search(String keyword, int count, LocalDateTime modifiedAt, LocalDateTime createdAt) {
+    private Search(String keyword, int count, LocalDateTime modifiedAt, LocalDateTime createdAt) {
         this.keyword = keyword;
         this.count = count;
         this.modifiedAt = modifiedAt;
@@ -33,6 +33,13 @@ public class Search {
         LocalDateTime now = LocalDateTime.now();
         return new Search(keyword, 1, now, now);
     }
+    
+    // 테스트를 위한 생성 메서드
+    public static Search of(String keyword, int count){
+        LocalDateTime now = LocalDateTime.now();
+        return new Search(keyword, count, now, now);
+    }
+    
     public void plusCount(){
         this.count++;
         this.modifiedAt = LocalDateTime.now();
