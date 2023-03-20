@@ -12,10 +12,10 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Locale;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -41,12 +41,15 @@ public class SearchServiceImpl implements SearchService{
     public TopSearchVo topSearch() {
         List<Search> top10ByOrderByCountDesc = searchRepository.findTop10ByOrderByCountDesc();
 
-        List<SearchVo> list = top10ByOrderByCountDesc.stream().map(m ->
-                SearchVo.builder()
-                        .keyword(m.getKeyword())
-                        .count(m.getCount())
-                        .build()
-        ).collect(Collectors.toList());
+        int rank = 1;
+        List<SearchVo> list = new LinkedList<>();
+        for(Search s : top10ByOrderByCountDesc){
+            list.add(SearchVo.builder()
+                    .keyword(s.getKeyword())
+                    .count(s.getCount())
+                    .rank(rank++)
+                    .build());
+        }
 
         return TopSearchVo.builder()
                 .list(list)

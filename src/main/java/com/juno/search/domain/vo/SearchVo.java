@@ -10,4 +10,5 @@ import lombok.Getter;
 public class SearchVo {
     private String keyword;
     private int count;
+    private int rank;
 }

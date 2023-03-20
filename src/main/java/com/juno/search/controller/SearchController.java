@@ -2,6 +2,7 @@ package com.juno.search.controller;
 
 import com.juno.search.domain.dto.SearchDto;
 import com.juno.search.domain.vo.SearchListVo;
+import com.juno.search.domain.vo.TopSearchVo;
 import com.juno.search.domain.vo.api.ApiResponse;
 import com.juno.search.service.SearchService;
 import lombok.RequiredArgsConstructor;
@@ -32,5 +33,14 @@ public class SearchController {
                         .data(searchService.search(SearchDto.of(sort, page, size, query, type)))
                         .build()
         );
+    }
+
+    @GetMapping("/top")
+    public ResponseEntity<ApiResponse<TopSearchVo>> topSearch(){
+        return ResponseEntity.ok(ApiResponse.<TopSearchVo>builder()
+                .code("SUCCESS")
+                .message("정상")
+                .data(searchService.topSearch())
+                .build());
     }
 }
