@@ -4,6 +4,7 @@ import com.juno.search.domain.dto.SearchDto;
 import com.juno.search.domain.enums.SearchType;
 import com.juno.search.domain.enums.SortType;
 import com.juno.search.domain.vo.SearchVo;
+import com.juno.search.repository.SearchRepository;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +12,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.Locale;
 
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -20,6 +22,9 @@ class SearchServiceImplTest {
 
     @Autowired
     private SearchService searchService;
+
+    @Autowired
+    private SearchRepository searchRepository;
 
     @Test
     @DisplayName("카카오 검색에 성공한다. (정확도)")
@@ -78,5 +83,20 @@ class SearchServiceImplTest {
         LocalDate parse2 = LocalDate.parse(search.getList().get(0).getDatetime(), DateTimeFormatter.ofPattern("yyyyMMdd"));
         int compare = parse1.compareTo(parse2);
         assertTrue(compare >= 0);
+    }
+
+    @Test
+    @DisplayName("검색어 입력시 keyword 데이터 저장에 성공한다.")
+    void searchSuccess5() throws Exception {
+        //given
+        String keyword = "카카오 뱅크";
+        SearchDto searchDto = SearchDto.of(SortType.R, 1, 10, keyword, SearchType.KAKAO);
+
+        //when
+        searchService.search(searchDto);
+
+        //then
+        String findKeyword = searchRepository.findByKeyword(keyword).get().getKeyword().toLowerCase(Locale.ROOT);
+        assertTrue(findKeyword.equals(keyword.trim().toLowerCase(Locale.ROOT)));
     }
 }

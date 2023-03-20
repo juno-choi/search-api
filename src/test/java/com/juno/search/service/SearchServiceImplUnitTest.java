@@ -12,10 +12,12 @@ import com.juno.search.domain.dto.naver.NaverSearchResponseDto;
 import com.juno.search.domain.enums.SearchType;
 import com.juno.search.domain.enums.SortType;
 import com.juno.search.domain.vo.SearchVo;
+import com.juno.search.repository.SearchRepository;
 import okhttp3.mockwebserver.MockResponse;
 import okhttp3.mockwebserver.MockWebServer;
 import org.junit.jupiter.api.*;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
@@ -36,6 +38,9 @@ class SearchServiceImplUnitTest {
     private ObjectMapper objectMapper = new ObjectMapper();
     private SearchService searchService;
 
+    @Mock
+    private SearchRepository searchRepository;
+
     @BeforeAll
     static void setUp() throws IOException {
         mockWebServer = new MockWebServer();
@@ -52,7 +57,7 @@ class SearchServiceImplUnitTest {
     void init(){
         String baseUrl = String.format("http://localhost:%s", mockWebServer.getPort());
         WebClient webClient = WebClient.create(baseUrl);
-        searchService = new SearchServiceImpl(new SearchClient(mockEnvironment, webClient));
+        searchService = new SearchServiceImpl(new SearchClient(mockEnvironment, webClient), searchRepository);
     }
 
     @Test
