@@ -37,4 +37,8 @@ public class Search {
         LocalDateTime now = LocalDateTime.now();
         return new Search(keyword, 1, now, now);
     }
+    public void plusCount(){
+        this.count++;
+        this.modifiedAt = LocalDateTime.now();
+    }
 }

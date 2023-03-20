@@ -34,14 +34,10 @@ public class SearchServiceImpl implements SearchService{
     }
 
     private void saveSearch(String keyword, Optional<Search> findSearch) {
-        Search search;
         if(findSearch.isPresent()){
-            search = findSearch.get();
-            // TODO findSearch를 가지고 count를 증가시켜 저장시켜야 한다.
-
-        }else{
-            search = Search.of(keyword);
+            findSearch.get().plusCount();
+            return ;
         }
-        searchRepository.save(search);
+        searchRepository.save(Search.of(keyword));
     }
 }
