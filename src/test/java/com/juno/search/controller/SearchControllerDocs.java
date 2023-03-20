@@ -216,7 +216,7 @@ class SearchControllerDocs extends RestdocsSupport {
                         fieldWithPath("message").type(JsonFieldType.STRING).description("결과 메세지"),
                         fieldWithPath("data.list[].keyword").type(JsonFieldType.STRING).description("검색어"),
                         fieldWithPath("data.list[].count").type(JsonFieldType.NUMBER).description("검색 횟수"),
-                        fieldWithPath("data.list[].rank").type(JsonFieldType.NUMBER).description("순위")
+                        fieldWithPath("data.list[].rank").type(JsonFieldType.NUMBER).description("순위 (정렬 기준 : 검색 횟수 > 최근 검색일 순)")
                 )
         ));
     }
