@@ -8,5 +8,5 @@ import java.util.Optional;
 
 public interface SearchRepository extends JpaRepository<Search, Long> {
     Optional<Search> findByKeyword(String keyword);
-    List<Search> findTop10ByOrderByCountDesc();
+    List<Search> findTop10ByOrderByCountDescModifiedAtDesc();
 }

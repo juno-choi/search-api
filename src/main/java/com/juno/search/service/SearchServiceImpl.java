@@ -39,7 +39,7 @@ public class SearchServiceImpl implements SearchService{
 
     @Override
     public TopSearchVo topSearch() {
-        List<Search> top10ByOrderByCountDesc = searchRepository.findTop10ByOrderByCountDesc();
+        List<Search> top10ByOrderByCountDesc = searchRepository.findTop10ByOrderByCountDescModifiedAtDesc();
 
         int rank = 1;
         List<SearchVo> list = new LinkedList<>();
