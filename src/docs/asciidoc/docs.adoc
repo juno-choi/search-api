@@ -102,7 +102,6 @@ include::{snippets}/search-controller-docs/search-a/request-parameters.adoc[]
 include::{snippets}/search-controller-docs/search-a/http-response.adoc[]
 
 ==== ✅ RESPONSE FIELD
-
 include::{snippets}/search-controller-docs/search-a/response-fields.adoc[]
 
 ### 📄 카카오 (최신순)
@@ -118,7 +117,6 @@ include::{snippets}/search-controller-docs/search-r/request-parameters.adoc[]
 include::{snippets}/search-controller-docs/search-r/http-response.adoc[]
 
 ==== ✅ RESPONSE FIELD
-
 include::{snippets}/search-controller-docs/search-r/response-fields.adoc[]
 
 ### 📄 네이버 (정확도)
@@ -134,7 +132,6 @@ include::{snippets}/search-controller-docs/search-naver-a/request-parameters.ado
 include::{snippets}/search-controller-docs/search-naver-a/http-response.adoc[]
 
 ==== ✅ RESPONSE FIELD
-
 include::{snippets}/search-controller-docs/search-naver-a/response-fields.adoc[]
 
 ### 📄 네이버 (최신순)
@@ -150,5 +147,15 @@ include::{snippets}/search-controller-docs/search-naver-r/request-parameters.ado
 include::{snippets}/search-controller-docs/search-naver-r/http-response.adoc[]
 
 ==== ✅ RESPONSE FIELD
-
 include::{snippets}/search-controller-docs/search-naver-r/response-fields.adoc[]
+
+### 📄 검색어 순위 (TOP 10)
+
+==== ✅ REQUEST HTTP
+include::{snippets}/search-controller-docs/top-search/http-request.adoc[]
+
+==== ✅ RESPONSE
+include::{snippets}/search-controller-docs/top-search/http-response.adoc[]
+
+==== ✅ RESPONSE FIELD
+include::{snippets}/search-controller-docs/top-search/response-fields.adoc[]
