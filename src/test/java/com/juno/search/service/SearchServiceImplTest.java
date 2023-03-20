@@ -7,6 +7,7 @@ import com.juno.search.domain.enums.SortType;
 import com.juno.search.domain.vo.SearchListVo;
 import com.juno.search.domain.vo.TopSearchVo;
 import com.juno.search.repository.SearchRepository;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,7 +24,6 @@ import java.util.Set;
 import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
-@Transactional(readOnly = true)
 class SearchServiceImplTest {
 
     @Autowired
@@ -31,6 +31,11 @@ class SearchServiceImplTest {
 
     @Autowired
     private SearchRepository searchRepository;
+
+    @AfterEach
+    void deleteAll(){
+        searchRepository.deleteAll();
+    }
 
     @Test
     @DisplayName("카카오 검색에 성공한다. (정확도)")
@@ -130,7 +135,6 @@ class SearchServiceImplTest {
 
     @Test
     @DisplayName("top10 조회에 성공한다.")
-    @Transactional
     void topSearch() throws Exception {
         //given
         String top1 = "최준호";

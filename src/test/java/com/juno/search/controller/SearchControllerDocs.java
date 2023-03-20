@@ -1,12 +1,19 @@
 package com.juno.search.controller;
 
 import com.juno.search.docs.RestdocsSupport;
+import com.juno.search.domain.entity.Search;
+import com.juno.search.repository.SearchRepository;
 import org.junit.jupiter.api.*;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.restdocs.payload.JsonFieldType;
 import org.springframework.test.web.servlet.ResultActions;
 
+
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Set;
 
 import static org.springframework.restdocs.payload.PayloadDocumentation.fieldWithPath;
 import static org.springframework.restdocs.payload.PayloadDocumentation.responseFields;
@@ -17,6 +24,14 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 @SpringBootTest
 @AutoConfigureMockMvc
 class SearchControllerDocs extends RestdocsSupport {
+
+    @Autowired
+    private SearchRepository searchRepository;
+
+    @AfterEach
+    void deleteAll(){
+        searchRepository.deleteAll();
+    }
 
     @Test
     @DisplayName("/v1/search (kakao 정확도)")
@@ -92,7 +107,6 @@ class SearchControllerDocs extends RestdocsSupport {
         ));
     }
 
-
     @Test
     @DisplayName("/v1/search (naver 정확도)")
     void searchNaverA() throws Exception {
@@ -130,7 +144,6 @@ class SearchControllerDocs extends RestdocsSupport {
         ));
     }
 
-
     @Test
     @DisplayName("/v1/search (naver 최신순)")
     void searchNaverR() throws Exception {
@@ -164,6 +177,46 @@ class SearchControllerDocs extends RestdocsSupport {
                         fieldWithPath("data.list[].blog_name").type(JsonFieldType.STRING).description("블로그 이름"),
                         fieldWithPath("data.list[].thumbnail").type(JsonFieldType.STRING).description("thumbnail"),
                         fieldWithPath("data.list[].datetime").type(JsonFieldType.STRING).description("등록일")
+                )
+        ));
+    }
+
+
+    @Test
+    @DisplayName("/v1/search/top")
+    void topSearch() throws Exception {
+        //given
+        String top1 = "juno";
+        Map<String, Integer> map = new HashMap<>();
+        map.put(top1, 10000);
+        map.put("kakao", 123);
+        map.put("naver", 1234);
+        map.put("최준호", 1);
+        map.put("Spring", 133);
+        map.put("api", 101);
+        map.put("java", 122);
+        map.put("kotlin", 332);
+        map.put("kopring", 4441);
+        map.put("luna", 9999);
+
+        Set<String> keys = map.keySet();
+        for(String key : keys){
+            searchRepository.save(Search.of(key, map.get(key)));
+        }
+
+        //when
+        ResultActions perform = mockMvc.perform(
+                get("/v1/search/top")
+        );
+
+        //then
+        perform.andDo(docs.document(
+                responseFields(
+                        fieldWithPath("code").type(JsonFieldType.STRING).description("결과 코드"),
+                        fieldWithPath("message").type(JsonFieldType.STRING).description("결과 메세지"),
+                        fieldWithPath("data.list[].keyword").type(JsonFieldType.STRING).description("검색어"),
+                        fieldWithPath("data.list[].count").type(JsonFieldType.NUMBER).description("검색 횟수"),
+                        fieldWithPath("data.list[].rank").type(JsonFieldType.NUMBER).description("순위")
                 )
         ));
     }

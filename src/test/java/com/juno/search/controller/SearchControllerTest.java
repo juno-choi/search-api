@@ -3,6 +3,7 @@ package com.juno.search.controller;
 import com.juno.search.docs.TestSupport;
 import com.juno.search.domain.entity.Search;
 import com.juno.search.repository.SearchRepository;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,6 +26,11 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 class SearchControllerTest extends TestSupport {
     @Autowired
     private SearchRepository searchRepository;
+
+    @AfterEach
+    void deleteAll(){
+        searchRepository.deleteAll();
+    }
 
     @Test
     @DisplayName("size가 50보다 크면 실패한다. (kakao)")
