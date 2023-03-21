@@ -71,7 +71,7 @@ class SearchControllerTest extends TestSupport {
     }
 
     @Test
-    @DisplayName("size가 100보다 크면 실패한다. (naver)")
+    @DisplayName("size가 50보다 크면 실패한다. (naver)")
     void searchFail3() throws Exception {
         //given
         //when
@@ -90,7 +90,7 @@ class SearchControllerTest extends TestSupport {
     }
 
     @Test
-    @DisplayName("page가 1000보다 크면 실패한다. (naver)")
+    @DisplayName("page가 500보다 크면 실패한다. (naver)")
     void searchFail4() throws Exception {
         //given
         //when
@@ -109,15 +109,78 @@ class SearchControllerTest extends TestSupport {
     }
 
     @Test
+    @DisplayName("요청 query가 100글자를 넘으면 실패한다.")
+    void searchFail5() throws Exception {
+        //given
+        //when
+        ResultActions perform = mockMvc.perform(
+                get("/v1/search").param("sort", "a")
+                        .param("page", "1")
+                        .param("size", "10")
+                        .param("query", "12345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890")
+                        .param("type", "naver")
+        ).andDo(print());
+
+        //then
+        String content = perform.andReturn().getResponse().getContentAsString(StandardCharsets.UTF_8);
+        perform.andExpect(status().is4xxClientError());
+        assertTrue(content.contains("FAIL"));
+    }
+
+    @Test
+    @DisplayName("요청 query가 비어있으면 실패한다.")
+    void searchFail6() throws Exception {
+        //given
+        //when
+        ResultActions perform = mockMvc.perform(
+                get("/v1/search")
+        ).andDo(print());
+
+        //then
+        String content = perform.andReturn().getResponse().getContentAsString(StandardCharsets.UTF_8);
+        perform.andExpect(status().is4xxClientError());
+        assertTrue(content.contains("FAIL"));
+    }
+
+    @Test
+    @DisplayName("요청 page int가 아닐 경우 실패한다.")
+    void searchFail7() throws Exception {
+        //given
+        //when
+        ResultActions perform = mockMvc.perform(
+                get("/v1/search")
+                .param("page", "가나다")
+        ).andDo(print());
+
+        //then
+        String content = perform.andReturn().getResponse().getContentAsString(StandardCharsets.UTF_8);
+        perform.andExpect(status().is4xxClientError());
+        assertTrue(content.contains("FAIL"));
+    }
+
+    @Test
+    @DisplayName("요청 size int가 아닐 경우 실패한다.")
+    void searchFail8() throws Exception {
+        //given
+        //when
+        ResultActions perform = mockMvc.perform(
+                get("/v1/search")
+                        .param("size", "가나다")
+        ).andDo(print());
+
+        //then
+        String content = perform.andReturn().getResponse().getContentAsString(StandardCharsets.UTF_8);
+        perform.andExpect(status().is4xxClientError());
+        assertTrue(content.contains("FAIL"));
+    }
+
+    @Test
     @DisplayName("검색에 성공한다.")
     void searchSuccess1() throws Exception {
         //given
         //when
         ResultActions perform = mockMvc.perform(
-                get("/v1/search").param("sort", "a")
-                .param("page", "1")
-                .param("size", "10")
-                .param("query", "kakao bank")
+                get("/v1/search").param("query", "kakao bank")
         ).andDo(print());
 
         //then
