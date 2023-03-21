@@ -8,6 +8,7 @@ import com.juno.search.domain.vo.DocumentsVo;
 import com.juno.search.domain.vo.SearchListVo;
 import com.juno.search.exception.KakaoServerException;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.env.Environment;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -25,6 +26,7 @@ import static org.springframework.http.HttpHeaders.AUTHORIZATION;
 
 @Component
 @RequiredArgsConstructor
+@Slf4j
 public class SearchClient {
     private final Environment env;
     private final WebClient webClient;
@@ -41,6 +43,7 @@ public class SearchClient {
 
     // 네이버 검색
     private SearchListVo getSearchByNaver(SearchDto search) {
+        log.info("search naver api start");
         String baseUrl = env.getProperty("api.naver.url");
         NaverSearchResponseDto naverSearchResponseDto = webClient.get().uri(baseUrl + getSearchUri(search))
                 .header("X-Naver-Client-Id", env.getProperty("api.naver.id"))
@@ -71,6 +74,7 @@ public class SearchClient {
 
     // 카카오 검색
     private SearchListVo getSearchByKakao(SearchDto search) {
+        log.info("search kakao api start");
         String baseUrl = env.getProperty("api.kakao.url");
         try{
             SearchResponseDto searchResponseDto = webClient.get().uri(baseUrl + getSearchUri(search))
