@@ -3,14 +3,10 @@ package com.juno.search.domain.dto;
 import com.juno.search.domain.enums.SearchType;
 import com.juno.search.domain.enums.SortType;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
 
 import java.util.Locale;
 
 @Getter
-@Setter
-@NoArgsConstructor
 public class SearchDto {
     private SortType sort;
     private int page;

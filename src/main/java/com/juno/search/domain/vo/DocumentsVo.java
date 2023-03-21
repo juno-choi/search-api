@@ -6,7 +6,6 @@ import lombok.*;
 
 @Getter
 @AllArgsConstructor
-@NoArgsConstructor
 @Builder
 @JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy.class)
 public class DocumentsVo {
