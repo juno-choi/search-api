@@ -453,12 +453,9 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </li>
 <li><a href="#_search_api">👏 search API</a>
 <ul class="sectlevel1">
-<li><a href="#_검색">📗 검색</a>
+<li><a href="#_search">📗 Search</a>
 <ul class="sectlevel2">
-<li><a href="#_카카오_정확도">📄 카카오 (정확도)</a></li>
-<li><a href="#_카카오_최신순">📄 카카오 (최신순)</a></li>
-<li><a href="#_네이버_정확도">📄 네이버 (정확도)</a></li>
-<li><a href="#_네이버_최신순">📄 네이버 (최신순)</a></li>
+<li><a href="#_검색">📄 검색</a></li>
 <li><a href="#_검색어_순위_top_10">📄 검색어 순위 (TOP 10)</a></li>
 </ul>
 </li>
@@ -588,15 +585,15 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </div>
 <h1 id="_search_api" class="sect0"><a class="link" href="#_search_api">👏 search API</a></h1>
 <div class="sect1">
-<h2 id="_검색"><a class="link" href="#_검색">📗 검색</a></h2>
+<h2 id="_search"><a class="link" href="#_search">📗 Search</a></h2>
 <div class="sectionbody">
 <div class="sect2">
-<h3 id="_카카오_정확도"><a class="link" href="#_카카오_정확도">📄 카카오 (정확도)</a></h3>
+<h3 id="_검색"><a class="link" href="#_검색">📄 검색</a></h3>
 <div class="sect3">
 <h4 id="_request_http"><a class="link" href="#_request_http">✅ REQUEST HTTP</a></h4>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">GET /v1/search?sort=a&amp;page=1&amp;size=10&amp;query=kakao+bank&amp;type=kakao HTTP/1.1
+<pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">GET /v1/search?query=kakao+bank&amp;sort=a&amp;page=1&amp;size=10&amp;type=kakao HTTP/1.1
 Host: 127.0.0.1</code></pre>
 </div>
 </div>
@@ -618,6 +615,11 @@ Host: 127.0.0.1</code></pre>
 </thead>
 <tbody>
 <tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>query</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">필수</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">검색을 원하는 질의어</p></td>
+</tr>
+<tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>sort</code></p></td>
 <td class="tableblock halign-left valign-top"></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">정렬 기준 (a:정확도, r:최신순)</p></td>
@@ -633,14 +635,9 @@ Host: 127.0.0.1</code></pre>
 <td class="tableblock halign-left valign-top"><p class="tableblock">한 페이지에 보여질 문서 수, 1~50 사이의 값, 기본 값 10</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>query</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">필수</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">검색을 원하는 질의어</p></td>
-</tr>
-<tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>type</code></p></td>
 <td class="tableblock halign-left valign-top"></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">검색 엔진 설정 기본 값 kakao (kakao, naver)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">검색 엔진 설정, 기본 값 kakao (kakao, naver)</p></td>
 </tr>
 </tbody>
 </table>
@@ -660,19 +657,19 @@ Content-Length: 7573
     "from" : "KAKAO",
     "list_size" : 10,
     "list" : [ {
+      "title" : "코드 스테이츠 PMB17기 Weekly Project [&lt;b&gt;kakao&lt;/b&gt; &lt;b&gt;Bank&lt;/b&gt;] #4",
+      "contents" : "작성해 작동 순서와 기능을 설명했다. (혹시나 기억이 나지 않는다면 하단의 글을 먼저 보고 오시길 바랍니다.) ​ 코드 스테이츠 PMB17기 Weekly Project [&lt;b&gt;kakao&lt;/b&gt; &lt;b&gt;Bank&lt;/b&gt;] #3 [Weekly Project #3] MVP 구체화 : 요구사항 정의서, IA, 와이어프레임과 스토리보드로 MVP구체... blog.naver.com 이번 단계에서는 &lt;b&gt;kakao&lt;/b&gt; Fin MVP...",
+      "url" : "https://blog.naver.com/hyuck9386/223043340612",
+      "blog_name" : "JUNDAENG",
+      "thumbnail" : "https://search4.kakaocdn.net/argon/130x130_85_c/F7U5DeJKwJB",
+      "datetime" : "20230313"
+    }, {
       "title" : "&lt;b&gt;카카오&lt;/b&gt; 뱅크 ( &lt;b&gt;Kakao&lt;/b&gt; &lt;b&gt;Bank&lt;/b&gt; ) 비상금 대출 방법 / 조건",
       "contents" : "&lt;b&gt;카카오&lt;/b&gt; 뱅크 ( &lt;b&gt;Kakao&lt;/b&gt; &lt;b&gt;Bank&lt;/b&gt; ) 비상금 대출 방법 / 조건 글 목차 ▒ &lt;b&gt;카카오&lt;/b&gt; 뱅크 ( &lt;b&gt;Kakao&lt;/b&gt; &lt;b&gt;Bank&lt;/b&gt; ) ▒ &lt;b&gt;카카오&lt;/b&gt; 뱅크 비상금 대출 방법 ▒ &lt;b&gt;카카오&lt;/b&gt; 뱅크 대출 조건 ▒ &lt;b&gt;카카오&lt;/b&gt; 뱅크 이자 ▒ &lt;b&gt;카카오&lt;/b&gt; 뱅크 장점 단점 &lt;b&gt;Kakao&lt;/b&gt; &lt;b&gt;Bank&lt;/b&gt; &lt;b&gt;카카오&lt;/b&gt; 뱅크 ( &lt;b&gt;Kakao&lt;/b&gt; &lt;b&gt;Bank&lt;/b&gt; ) &lt;b&gt;카카오&lt;/b&gt;뱅크는 한국의 인터넷 기업인 &lt;b&gt;카카오&lt;/b&gt;에서 제공하는 모바일 뱅킹...",
       "url" : "http://xndpdlcl.tistory.com/224",
       "blog_name" : "리빙 인포어메이션",
       "thumbnail" : "https://search2.kakaocdn.net/argon/130x130_85_c/ArhDalZZy2",
       "datetime" : "20230106"
-    }, {
-      "title" : "코드 스테이츠 PMB17기 Weekly Project [&lt;b&gt;kakao&lt;/b&gt; &lt;b&gt;Bank&lt;/b&gt;] #4",
-      "contents" : "작성해 작동 순서와 기능을 설명했다. (혹시나 기억이 나지 않는다면 하단의 글을 먼저 보고 오시길 바랍니다.) ​ 코드 스테이츠 PMB17기 Weekly Project [&lt;b&gt;kakao&lt;/b&gt; &lt;b&gt;Bank&lt;/b&gt;] #3 [Weekly Project #3] MVP 구체화 : 요구사항 정의서, IA, 와이어프레임과 스토리보드로 MVP구체... blog.naver.com 이번 단계에서는 &lt;b&gt;kakao&lt;/b&gt; Fin MVP...",
-      "url" : "https://blog.naver.com/hyuck9386/223043340612",
-      "blog_name" : "JUNDAENG",
-      "thumbnail" : "https://search3.kakaocdn.net/argon/130x130_85_c/8lUYAHXBIo9",
-      "datetime" : "20230313"
     }, {
       "title" : "코드 스테이츠 PMB17기 Weekly Project [&lt;b&gt;kakao&lt;/b&gt; &lt;b&gt;Bank&lt;/b&gt;] #3",
       "contents" : "페이에서 긍정적인 평가를 받고 있는 기능들을 위주로 정리했었다. (혹시나 기억이 나지 않는다면 하단의 글을 먼저 보고 오시길 바랍니다.) 코드 스테이츠 PMB17기 Weekly Project [&lt;b&gt;kakao&lt;/b&gt; &lt;b&gt;Bank&lt;/b&gt;] #2 [Weekly Project #2] MVP : 발견한 문제를 해결할 수 있는 새로운 기능의 MVP 를 기획 &lt;b&gt;kakao&lt;/b&gt; Fin ... blog.naver.com...",
@@ -806,654 +803,9 @@ Content-Length: 7573
 </div>
 </div>
 <div class="sect2">
-<h3 id="_카카오_최신순"><a class="link" href="#_카카오_최신순">📄 카카오 (최신순)</a></h3>
-<div class="sect3">
-<h4 id="_request_http_2"><a class="link" href="#_request_http_2">✅ REQUEST HTTP</a></h4>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">GET /v1/search?sort=r&amp;page=1&amp;size=10&amp;query=kakao+bank&amp;type=kakao HTTP/1.1
-Host: 127.0.0.1</code></pre>
-</div>
-</div>
-</div>
-<div class="sect3">
-<h4 id="_request_parameter_2"><a class="link" href="#_request_parameter_2">✅ REQUEST PARAMETER</a></h4>
-<table class="tableblock frame-all grid-all stretch">
-<colgroup>
-<col style="width: 33.3333%;">
-<col style="width: 33.3333%;">
-<col style="width: 33.3334%;">
-</colgroup>
-<thead>
-<tr>
-<th class="tableblock halign-left valign-top">Parameter</th>
-<th class="tableblock halign-left valign-top">필수여부</th>
-<th class="tableblock halign-left valign-top">설명</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>sort</code></p></td>
-<td class="tableblock halign-left valign-top"></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">정렬 기준 (a:정확도, r:최신순)</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>page</code></p></td>
-<td class="tableblock halign-left valign-top"></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">결과 페이지 번호, 1~50 사이의 값, 기본 값 1</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>size</code></p></td>
-<td class="tableblock halign-left valign-top"></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">한 페이지에 보여질 문서 수, 1~50 사이의 값, 기본 값 10</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>query</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">필수</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">검색을 원하는 질의어</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>type</code></p></td>
-<td class="tableblock halign-left valign-top"></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">검색 엔진 설정 기본 값 kakao (kakao, naver)</p></td>
-</tr>
-</tbody>
-</table>
-</div>
-<div class="sect3">
-<h4 id="_response_2"><a class="link" href="#_response_2">✅ RESPONSE</a></h4>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">HTTP/1.1 200 OK
-Content-Type: application/json;charset=UTF-8
-Content-Length: 7858
-
-{
-  "code" : "SUCCESS",
-  "message" : "정상",
-  "data" : {
-    "from" : "KAKAO",
-    "list_size" : 10,
-    "list" : [ {
-      "title" : "직장인코딩학원 자기계발과 이직준비할 수 있는 학원",
-      "contents" : "더불어 &amp;#34;네이버 영수증 리뷰 이벤트&amp;#34;에서는 이벤트 기간 중 네이버나 &lt;b&gt;카카오&lt;/b&gt; 맵에 리뷰를 작성하는 신규 및 추가 등록 인원들을 대상으로 다양한 혜택을 제공...더 자세히 궁금하신 분들은 아래 링크로 문의 남겨주시길 바랍니다~! ​ ​ IT&lt;b&gt;BANK&lt;/b&gt;학원 IT&lt;b&gt;BANK&lt;/b&gt;학원 대표문의 IT학원 자바, 파이썬, 빅데이터, 네트워크/서버...",
-      "url" : "https://blog.naver.com/qkrdmswjd2849/223049858272",
-      "blog_name" : "day by day",
-      "thumbnail" : "https://search1.kakaocdn.net/argon/130x130_85_c/E4siTWQCfTx",
-      "datetime" : "20230320"
-    }, {
-      "title" : "[케이뱅크(K &lt;b&gt;bank&lt;/b&gt;) - 수수료 없는 1금융권 은행]​",
-      "contents" : "[케이뱅크(K &lt;b&gt;bank&lt;/b&gt;) - 수수료 없는 1금융권 은행] ​ 매일매일 현금 받아가는 행운상자 아직도 안 열었나요?? 케이뱅크(K &lt;b&gt;bank&lt;/b&gt;) 계좌 연결하고 행운상자 열어서...#리워드앱 #행운상자 #선물상자 #100만원 #백만원 #오천원 #5천원 #혜자 #&lt;b&gt;카카오&lt;/b&gt;페이 #토스 #페이코 #쿠페이 #SSG페이 #핀크 #엘페이 #티머니페이 #SK페이...",
-      "url" : "https://blog.naver.com/ypj81/223050337023",
-      "blog_name" : "♤커피 한 잔의 추억º",
-      "thumbnail" : "https://search2.kakaocdn.net/argon/130x130_85_c/GYqk5e2MvT4",
-      "datetime" : "20230320"
-    }, {
-      "title" : "C프로그래밍학원 : c언어를 가장 먼저 배우면 좋은 점",
-      "contents" : "네이버 영수증 리뷰 이벤트&amp;#34;도 진행됩니다. 학원 등록 후 네이버 혹은 &lt;b&gt;카카오&lt;/b&gt; 맵에 리뷰를 작성하시면 혜택을 드립니다. &amp;#34;스킬업! 레벨업! 이벤트&amp;#34;와 &amp;#34;네이버...링크를 통해 궁금하신 점을 사전예약 후 바로 물어보시기 바랍니다 ​ ​ IT&lt;b&gt;BANK&lt;/b&gt;학원 IT&lt;b&gt;BANK&lt;/b&gt;학원 대표문의 IT학원 자바, 파이썬, 빅데이터, 네트워크/서버...",
-      "url" : "https://blog.naver.com/cnldjq62/223049878147",
-      "blog_name" : "우리가 사는 이야기",
-      "thumbnail" : "https://search4.kakaocdn.net/argon/130x130_85_c/4Z0NNUsu8Ef",
-      "datetime" : "20230320"
-    }, {
-      "title" : "달공이 2023년 3월 20일별 주식 상승률 상위 테마 종목 정보",
-      "contents" : "0.32% &amp;#34;지에스이,대성에너지&amp;#34; 주류업(주정, 에탄올 등) 12 ▼ -0.33% &amp;#34;하이트진로,롯데칠성&amp;#34; 겨울 22 ▼ -0.34% &amp;#34;경동나비엔,신일전자&amp;#34; &lt;b&gt;카카오&lt;/b&gt;뱅크(&lt;b&gt;kakao&lt;/b&gt; &lt;b&gt;BANK&lt;/b&gt;) 11 ▼ -0.36% &amp;#34;&lt;b&gt;카카오&lt;/b&gt;,한국금융지주&amp;#34; 보안주(정보) 39 ▼ -0.37% &amp;#34;엑스게이트,샌즈랩&amp;#34; STO(증권형 토큰 발행) 18 ▼ -0.39% &amp;#34;핑거,갤럭시아머니트리&amp;#34; 영화 15...",
-      "url" : "http://dal02stock.tistory.com/54116",
-      "blog_name" : "달공이의 주식 투자 이야기",
-      "thumbnail" : "",
-      "datetime" : "20230320"
-    }, {
-      "title" : "2023. 3. 20 (월) 블록체인 뉴스 모음",
-      "contents" : "Size &lt;b&gt;Bank&lt;/b&gt; Coalition of America)은 미국 재무부, 연방예금보험공사(FDIC), 통화감독청, 연방준비제도에 서한을 보내 관련 비용을 은행이 자체 부담하는 조건으로 향후 2년간 FDIC의 보험 범위를 모든 예금으로 확대해줄 것을 요청했다고 블룸버그가 19일(현지시간) 보도했다. ​ 보도에 따르면 중형은행연합은 서한에서...",
-      "url" : "https://blog.naver.com/heritage_blocks/223050109670",
-      "blog_name" : "HERITAGE BLOCKS 블록체인 암호화폐",
-      "thumbnail" : "https://search2.kakaocdn.net/argon/130x130_85_c/3uP8jm62QD5",
-      "datetime" : "20230320"
-    }, {
-      "title" : "백엔드개발자 국비지원 비용 부담없이 취업까지 준비하자!",
-      "contents" : "이벤트 기간인 2월 20일부터 4월 30일까지 학원 등록 후 네이버 혹은 &lt;b&gt;카카오&lt;/b&gt; 맵에 리뷰를 작성한 학생들을 대상으로 혜택을 증정합니다. 리뷰 이벤트가 적용되는...상담을 신청해주시면 정확히 안내해드립니다. ​ ​ 신청하러가기 ▼ ​ IT&lt;b&gt;BANK&lt;/b&gt;학원 IT&lt;b&gt;BANK&lt;/b&gt;학원 대표문의 IT학원 자바, 파이썬, 빅데이터, 네트워크/서버...",
-      "url" : "https://blog.naver.com/cnldjq62/223049867470",
-      "blog_name" : "우리가 사는 이야기",
-      "thumbnail" : "https://search3.kakaocdn.net/argon/130x130_85_c/3CipMQ5U5d5",
-      "datetime" : "20230320"
-    }, {
-      "title" : "3월 20일 주요일정 / 증시전망 꼭 참고",
-      "contents" : "Republic &lt;b&gt;Bank&lt;/b&gt; 32% 급락해 은행 리스크 재부각. SVB 모기업 파산보호 신청, 크레딧스위스 8% 하락 ​ - 안전자산 선호로 금 선물 온스당 2천달러 육박. NDF 원/달러 환율 금요일보다 6원 상승한 1,308원 ​ ▲ 종합판단 : 인플레 고착화, 고금리 지속 우려 재확산으로 Index 추가 상승 어려워. 급격한 금리인상에 따른...",
-      "url" : "https://blog.naver.com/bts0098862/223049903599",
-      "blog_name" : "주식 해선 재테크 정보는 여기로",
-      "thumbnail" : "https://search2.kakaocdn.net/argon/130x130_85_c/4nBpjrkEK1s",
-      "datetime" : "20230320"
-    }, {
-      "title" : "실무적인 프로그래밍 배우고싶다면 서울코딩학원 &amp;#39;KG아이티뱅크&amp;#39;",
-      "contents" : "네이버와 &lt;b&gt;카카오&lt;/b&gt; 맵에서 리뷰를 작성하면, 다양한 혜택을 받을 수 있습니다. ​ 이벤트 기간 중 리뷰 이벤트에 참여하시어 혜택을 누려보세요! ​ 이벤트에 대한...진행되며, 수강료할인와 같은 여러가지 혜택들도 받아볼 수 있다고 합니다. ​ 더 자세히 알아보고 싶으시다면, 아래 링크로 문의 부탁드리겠습니다. ​ ​ IT&lt;b&gt;BANK&lt;/b&gt;...",
-      "url" : "https://blog.naver.com/qkrdmswjd2849/223049852477",
-      "blog_name" : "day by day",
-      "thumbnail" : "https://search2.kakaocdn.net/argon/130x130_85_c/Chc9t7JS5z5",
-      "datetime" : "20230320"
-    }, {
-      "title" : "Monday, March 20, 2023 Summary News",
-      "contents" : "The &lt;b&gt;Bank&lt;/b&gt; of Korea is also rushing to introduce a real-time total payment system without credit risks. China Sells U.S. Government Bonds, Net Selling $80 Billion in Six Months China&amp;#39;s China Day reported on the 18th that China&amp;#39;s holdings of U.S. government bonds reached their lowest level in 12...",
-      "url" : "http://blog.15ainlove.com/119",
-      "blog_name" : "행복한 나라",
-      "thumbnail" : "https://search1.kakaocdn.net/argon/130x130_85_c/APTVwgzVoE9",
-      "datetime" : "20230320"
-    }, {
-      "title" : "[공지] 도서정가제 수정해야 하는가? / 원나라 정복 전쟁 / 크레딧스위스 은행발 위기 / 기생충의 세계...",
-      "contents" : "Central &lt;b&gt;Bank&lt;/b&gt;)은 큰 진전인 50bp 금리를 인상했으며 이제 모든 시선은 연준의 결정에 쏠려 있습니다. ​ 매혹적인 기생충의 세계 기생충은 오랫동안 과학자들의 연구 대상이 되어 온 매혹적인 생물입니다. 유명한 촌충부터 잘 알려지지 않은 톡소플라스마 곤디에 이르기까지, 이 생물체는 이상하고도 놀라운 방식으로 숙주...",
-      "url" : "https://blog.naver.com/rnquddlf/223049679248",
-      "blog_name" : "슈카월드 같이 보자",
-      "thumbnail" : "https://search1.kakaocdn.net/argon/130x130_85_c/9RCdtURb9Fx",
-      "datetime" : "20230320"
-    } ]
-  }
-}</code></pre>
-</div>
-</div>
-</div>
-<div class="sect3">
-<h4 id="_response_field_2"><a class="link" href="#_response_field_2">✅ RESPONSE FIELD</a></h4>
-<table class="tableblock frame-all grid-all stretch">
-<colgroup>
-<col style="width: 33.3333%;">
-<col style="width: 33.3333%;">
-<col style="width: 33.3334%;">
-</colgroup>
-<thead>
-<tr>
-<th class="tableblock halign-left valign-top">필드명</th>
-<th class="tableblock halign-left valign-top">타입</th>
-<th class="tableblock halign-left valign-top">설명</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>code</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">결과 코드</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>message</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">결과 메세지</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>data.from</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">결과 값을 가져온 검색 엔진</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>data.list_size</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Number</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">결과 값 리스트 크기</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>data.list[].title</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">제목</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>data.list[].contents</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">내용</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>data.list[].url</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">해당 글 url</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>data.list[].blog_name</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">블로그 이름</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>data.list[].thumbnail</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">thumbnail</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>data.list[].datetime</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">등록일</p></td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-<div class="sect2">
-<h3 id="_네이버_정확도"><a class="link" href="#_네이버_정확도">📄 네이버 (정확도)</a></h3>
-<div class="sect3">
-<h4 id="_request_http_3"><a class="link" href="#_request_http_3">✅ REQUEST HTTP</a></h4>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">GET /v1/search?sort=a&amp;page=1&amp;size=10&amp;query=kakao+bank&amp;type=naver HTTP/1.1
-Host: 127.0.0.1</code></pre>
-</div>
-</div>
-</div>
-<div class="sect3">
-<h4 id="_request_parameter_3"><a class="link" href="#_request_parameter_3">✅ REQUEST PARAMETER</a></h4>
-<table class="tableblock frame-all grid-all stretch">
-<colgroup>
-<col style="width: 33.3333%;">
-<col style="width: 33.3333%;">
-<col style="width: 33.3334%;">
-</colgroup>
-<thead>
-<tr>
-<th class="tableblock halign-left valign-top">Parameter</th>
-<th class="tableblock halign-left valign-top">필수여부</th>
-<th class="tableblock halign-left valign-top">설명</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>sort</code></p></td>
-<td class="tableblock halign-left valign-top"></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">정렬 기준 (a:정확도, r:최신순)</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>page</code></p></td>
-<td class="tableblock halign-left valign-top"></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">결과 페이지 번호, 1~50 사이의 값, 기본 값 1</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>size</code></p></td>
-<td class="tableblock halign-left valign-top"></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">한 페이지에 보여질 문서 수, 1~50 사이의 값, 기본 값 10</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>query</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">필수</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">검색을 원하는 질의어</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>type</code></p></td>
-<td class="tableblock halign-left valign-top"></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">검색 엔진 설정 기본 값 kakao (kakao, naver)</p></td>
-</tr>
-</tbody>
-</table>
-</div>
-<div class="sect3">
-<h4 id="_response_3"><a class="link" href="#_response_3">✅ RESPONSE</a></h4>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">HTTP/1.1 200 OK
-Content-Type: application/json;charset=UTF-8
-Content-Length: 5706
-
-{
-  "code" : "SUCCESS",
-  "message" : "정상",
-  "data" : {
-    "from" : "NAVER",
-    "list_size" : 10,
-    "list" : [ {
-      "title" : "[카카오뱅크 (&lt;b&gt;kakao BANK&lt;/b&gt;)] 공모주 청약 알아보기.",
-      "contents" : "※ 2021년 7월 카카오뱅크 (&lt;b&gt;KAKAO BANK&lt;/b&gt;) 2021년 7월 말 진행하는 공모주 청약의 대어인 '카카오 뱅크(kakao BANCK) 알아보겠습니다. 2021년 7월 하순에는 카카오뱅크, 카카오 페이, 크래프톤등, 속칭! IPO 시장의 대어라고... ",
-      "url" : "https://blog.naver.com/jbo139/222439768128",
-      "blog_name" : "Bobster Lab.",
-      "thumbnail" : "",
-      "datetime" : "20210721"
-    }, {
-      "title" : "[3주차_블로그 미션] &lt;b&gt;Kakao Bank&lt;/b&gt; 뜯어보기",
-      "contents" : "&lt;b&gt;Kakao Bank&lt;/b&gt; 를 선택한 이유 평소 카카오뱅크를 주거래 은행으로 사용하면서, 개인적으로는 잔액확인과 송금등 간단한 기능만 사용했왔습니다. 카카오뱅크를 통해 모임통장을 활용하면서 ‘정말... ",
-      "url" : "https://blog.naver.com/taejin_pm/223025392635",
-      "blog_name" : "데일리 PM 일지",
-      "thumbnail" : "",
-      "datetime" : "20230223"
-    }, {
-      "title" : "카카오뱅크 점검시간 (이용수수료, 이용한도, &lt;b&gt;Kakao bank&lt;/b&gt;... ",
-      "contents" : "&lt;b&gt;Kakao bank&lt;/b&gt; mini 청소년 타겟의 상품이 따로 있어서 잠깐 소개합니다. mini의 경우, 발급은 만 14세 이상 ~ 만 18세 이하 내국인을 대상으로 1인당 1개만 개설 가능합니다. 보유한도는 50만 원이며, 이용한도는... ",
-      "url" : "https://blog.naver.com/loveyeon725/222842229328",
-      "blog_name" : "돈이 따라오는 금융발전소",
-      "thumbnail" : "",
-      "datetime" : "20220807"
-    }, {
-      "title" : "코드 스테이츠 PMB17기 Weekly Project [&lt;b&gt;kakao Bank&lt;/b&gt;] #3",
-      "contents" : "[Weekly Project #3] MVP 구체화 : 요구사항 정의서, IA, 와이어프레임과 스토리보드로 MVP구체화해보기 kakao Fin's MVP 구체화하기 저번 &lt;b&gt;kakao Bank&lt;/b&gt; #2에서는 최소한의 기능을 가진 kakao Fin MVP를 디자인해보았다.... ",
-      "url" : "https://blog.naver.com/hyuck9386/223034926937",
-      "blog_name" : "JUNDAENG",
-      "thumbnail" : "",
-      "datetime" : "20230304"
-    }, {
-      "title" : "연결하는 방법 How to connect &lt;b&gt;Kakao Bank&lt;/b&gt; to PayPal",
-      "contents" : "페이팔에 카카오뱅크를 연결하는 방법 How to connect &lt;b&gt;Kakao Bank&lt;/b&gt; to PayPal 해외에 컨텐츠를 판매하거나... 은행이름에 : KAKAOBANK 은행코드에 : 090 계좌유형에 : 예금 계좌번호에 : 개인의 카카오뱅크 계좌번호... ",
-      "url" : "https://richcat.tistory.com/6356",
-      "blog_name" : "리치캣의 현재 그리고 미래",
-      "thumbnail" : "",
-      "datetime" : "20210630"
-    }, {
-      "title" : "카카오뱅크 (&lt;b&gt;Kakao Bank&lt;/b&gt;)",
-      "contents" : "2020년 6월 1일 상호를 기존 &amp;quot;한국카카오은행주식회사&amp;quot;(영어: &lt;b&gt;Kakao Bank&lt;/b&gt; of Korea Corp.)에서 &amp;quot;주식회사 카카오뱅크&amp;quot;(영어: KakaoBank Corp.)로 변경했다. 은산분리 규제 때문에 자금조달에 문제가 많았지만 2019년에... ",
-      "url" : "https://blog.naver.com/ee9607/222745779000",
-      "blog_name" : "광주 지녕쓰",
-      "thumbnail" : "",
-      "datetime" : "20220525"
-    }, {
-      "title" : "카카오뱅크(&lt;b&gt;Kakao Bank&lt;/b&gt;)는 무엇을 하는 회사일까?",
-      "contents" : "카카오뱅크(&lt;b&gt;Kakao Bank&lt;/b&gt;). 카카오 뱅크는 2016년 인터넷 전문 은행으로 설립되어 2017년 정식으로 출범, 그리고 대한민국의 2번째 인터넷 전문 은행이다. 카카오뱅크는 다른 은행과 다르게 모바일 전용으로만... ",
-      "url" : "https://blog.naver.com/yes1406/222427458988",
-      "blog_name" : "POST DOT.",
-      "thumbnail" : "",
-      "datetime" : "20210723"
-    }, {
-      "title" : "카카오뱅크 26일 굿모닝 챌린지 이벤트 (&lt;b&gt;kakao bank&lt;/b&gt;, 1억원... ",
-      "contents" : "카카오뱅크 26일 굿모닝 챌린지 이벤트 (&lt;b&gt;kakao bank&lt;/b&gt;, 1억원, 스타벅스) # 목록 1. 이벤트... 이벤트 페이지 접속  이벤트 링크: https://event.kakaobank.com/p/challenge?i=2209 2. 참가 신청하기... ",
-      "url" : "https://blog.naver.com/cor2738/222882441347",
-      "blog_name" : "빵꼴라의 블로그",
-      "thumbnail" : "",
-      "datetime" : "20220923"
-    }, {
-      "title" : "證券 :: &lt;b&gt;Kakao Bank&lt;/b&gt;開設證券戶優惠 카카오뱅크... ",
-      "contents" : "#kakaobank #카카오뱅크 출처:카카오뱅크 現在&lt;b&gt;Kakao Bank&lt;/b&gt;有證券戶新戶開戶活動， 透過Kakaobank開設證券戶。 首先要有Kakaobank的使用資格： 韓國國民，未成年、外國人除外。 有三個證券公司可以選擇：... ",
-      "url" : "https://blog.naver.com/ruru0911/222265788780",
-      "blog_name" : "창원댁 ☻",
-      "thumbnail" : "",
-      "datetime" : "20210305"
-    }, {
-      "title" : "카카오 형제 &lt;b&gt;kakao&lt;/b&gt; 페이 pay 뱅크 &lt;b&gt;bank&lt;/b&gt; 게임즈 주가 주식 전망... ",
-      "contents" : "카카오 형제들 &lt;b&gt;kakao&lt;/b&gt; kakaogames는 물론 카카오뱅크 카카오페이까지 왜 이렇게 하락이 크게 일어날까요? 이유는 제일 먼저는 금리 인상으로 인한 성장주들의 하락이 크고 작년 카카오 그룹주의 무리한 쪼개기... ",
-      "url" : "https://blog.naver.com/son675/222898593216",
-      "blog_name" : "초보주식경제공부",
-      "thumbnail" : "",
-      "datetime" : "20221012"
-    } ]
-  }
-}</code></pre>
-</div>
-</div>
-</div>
-<div class="sect3">
-<h4 id="_response_field_3"><a class="link" href="#_response_field_3">✅ RESPONSE FIELD</a></h4>
-<table class="tableblock frame-all grid-all stretch">
-<colgroup>
-<col style="width: 33.3333%;">
-<col style="width: 33.3333%;">
-<col style="width: 33.3334%;">
-</colgroup>
-<thead>
-<tr>
-<th class="tableblock halign-left valign-top">필드명</th>
-<th class="tableblock halign-left valign-top">타입</th>
-<th class="tableblock halign-left valign-top">설명</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>code</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">결과 코드</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>message</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">결과 메세지</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>data.from</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">결과 값을 가져온 검색 엔진</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>data.list_size</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Number</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">결과 값 리스트 크기</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>data.list[].title</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">제목</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>data.list[].contents</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">내용</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>data.list[].url</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">해당 글 url</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>data.list[].blog_name</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">블로그 이름</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>data.list[].thumbnail</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">thumbnail</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>data.list[].datetime</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">등록일</p></td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-<div class="sect2">
-<h3 id="_네이버_최신순"><a class="link" href="#_네이버_최신순">📄 네이버 (최신순)</a></h3>
-<div class="sect3">
-<h4 id="_request_http_4"><a class="link" href="#_request_http_4">✅ REQUEST HTTP</a></h4>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">GET /v1/search?sort=r&amp;page=1&amp;size=10&amp;query=kakao+bank&amp;type=naver HTTP/1.1
-Host: 127.0.0.1</code></pre>
-</div>
-</div>
-</div>
-<div class="sect3">
-<h4 id="_request_parameter_4"><a class="link" href="#_request_parameter_4">✅ REQUEST PARAMETER</a></h4>
-<table class="tableblock frame-all grid-all stretch">
-<colgroup>
-<col style="width: 33.3333%;">
-<col style="width: 33.3333%;">
-<col style="width: 33.3334%;">
-</colgroup>
-<thead>
-<tr>
-<th class="tableblock halign-left valign-top">Parameter</th>
-<th class="tableblock halign-left valign-top">필수여부</th>
-<th class="tableblock halign-left valign-top">설명</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>sort</code></p></td>
-<td class="tableblock halign-left valign-top"></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">정렬 기준 (a:정확도, r:최신순)</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>page</code></p></td>
-<td class="tableblock halign-left valign-top"></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">결과 페이지 번호, 1~50 사이의 값, 기본 값 1</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>size</code></p></td>
-<td class="tableblock halign-left valign-top"></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">한 페이지에 보여질 문서 수, 1~50 사이의 값, 기본 값 10</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>query</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">필수</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">검색을 원하는 질의어</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>type</code></p></td>
-<td class="tableblock halign-left valign-top"></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">검색 엔진 설정 기본 값 kakao (kakao, naver)</p></td>
-</tr>
-</tbody>
-</table>
-</div>
-<div class="sect3">
-<h4 id="_response_4"><a class="link" href="#_response_4">✅ RESPONSE</a></h4>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">HTTP/1.1 200 OK
-Content-Type: application/json;charset=UTF-8
-Content-Length: 5751
-
-{
-  "code" : "SUCCESS",
-  "message" : "정상",
-  "data" : {
-    "from" : "NAVER",
-    "list_size" : 10,
-    "list" : [ {
-      "title" : "스카이 발언 모음",
-      "contents" : "https://fedpaymentsimprovement.org/news/blog/federal-reserve-explores-central-&lt;b&gt;bank&lt;/b&gt;-digital-currency/?utm_source=hootsuite... ============================== 사이페리움 오리지널 단톡방 https://open.&lt;b&gt;kakao&lt;/b&gt;.com/o/gyhB0wKd #DeFi #FedNow... ",
-      "url" : "https://blog.naver.com/jiyounpig/223050629028",
-      "blog_name" : "Cypherium 사이페리움",
-      "thumbnail" : "",
-      "datetime" : "20230320"
-    }, {
-      "title" : "XRP 시가총액 한때 200억 달러 돌파",
-      "contents" : "특히 비트코인과 이더리움은 최근 실리콘밸리뱅크(Silicon Valley &lt;b&gt;Bank&lt;/b&gt;)와 시그니처뱅크(Signature... https://pf.&lt;b&gt;kakao&lt;/b&gt;.com/_xexhHgK/chat (블록체인투데이 참여코드 채널 문의) 공식밴드: https://band.us/band... ",
-      "url" : "https://blog.naver.com/blockchaintoday/223050176541",
-      "blog_name" : "블록체인투데이",
-      "thumbnail" : "",
-      "datetime" : "20230320"
-    }, {
-      "title" : "비트코인 2만8000달러 돌파 배경은 &amp;apos;글로벌 금융위기&amp;apos; 불안감",
-      "contents" : "지난주 규제 당국이 실버게이트(Silvergate)를 폐쇄하고 시그니처 은행(Signature &lt;b&gt;Bank&lt;/b&gt;) 및... https://pf.&lt;b&gt;kakao&lt;/b&gt;.com/_xexhHgK/chat (블록체인투데이 참여코드 채널 문의) 공식밴드: https://band.us/band... ",
-      "url" : "https://blog.naver.com/blockchaintoday/223050167907",
-      "blog_name" : "블록체인투데이",
-      "thumbnail" : "",
-      "datetime" : "20230320"
-    }, {
-      "title" : "2023. 3. 20 (월) 블록체인 뉴스 모음",
-      "contents" : "((Mid-Size &lt;b&gt;Bank&lt;/b&gt; Coalition of America)은 미국 재무부, 연방예금보험공사(FDIC), 통화감독청, 연방준비제도에... https://open.&lt;b&gt;kakao&lt;/b&gt;.com/o/gPltdHM * 감사합니다 * 헤리티지블록스 글 공지만 받으실 분들을 위한 텔레그램... ",
-      "url" : "https://blog.naver.com/heritage_blocks/223050109670",
-      "blog_name" : "HERITAGE BLOCKS 블록체인 암호화폐",
-      "thumbnail" : "",
-      "datetime" : "20230320"
-    }, {
-      "title" : "3월 20일 주요일정 / 증시전망 꼭 참고",
-      "contents" : "First Republic &lt;b&gt;Bank&lt;/b&gt; 32% 급락해 은행 리스크 재부각. SVB 모기업 파산보호 신청, 크레딧스위스 8% 하락... 베스트선물옵션 고객센터 공식 채널 URL : http://pf.&lt;b&gt;kakao&lt;/b&gt;.com/_txanWxj 베스트선물옵션 고객센터 채널... ",
-      "url" : "https://blog.naver.com/bts0098862/223049903599",
-      "blog_name" : "주식 해선 재테크 정보는 여기로",
-      "thumbnail" : "",
-      "datetime" : "20230320"
-    }, {
-      "title" : "[23.03.20] 주택담보대출 금리 동향(신규코픽스 인하)",
-      "contents" : "미국 내 자산 기준 16위 규모인 실리콘밸리은행(SVB : Sillocon Valley &lt;b&gt;Bank&lt;/b&gt;)이 파산하였습니다.... https://open.&lt;b&gt;kakao&lt;/b&gt;.com/o/s3yWVqEe 상담이 필요하신 분은 위의 오픈 채팅방이나 비밀댓글로 문의해 주세요.^^ + 함께... ",
-      "url" : "https://blog.naver.com/leeway365/223049863644",
-      "blog_name" : "리웨이의 이로운 대출",
-      "thumbnail" : "",
-      "datetime" : "20230320"
-    }, {
-      "title" : "3월 넷째주 주요일정 / 증시전망 꼭 참고",
-      "contents" : "First Republic &lt;b&gt;Bank&lt;/b&gt; 32% 급락해 은행 리스크 재부각. SVB 모기업 파산보호 신청, 크레딧스위스 8% 하락... kr ▼▼▼▼▼ 카카오톡 상담 링크 고객센터 ▼▼▼▼▼ http://pf.&lt;b&gt;kakao&lt;/b&gt;.com/_txanWxj/chat [주식... ",
-      "url" : "https://blog.naver.com/best_brain_/223049734995",
-      "blog_name" : "주식 , 해선 연구소",
-      "thumbnail" : "",
-      "datetime" : "20230320"
-    }, {
-      "title" : "은행 특정금전신탁 유의사항 (feat. 원금손실) : 단기, 보장... ",
-      "contents" : "KB국민은행 #하나은행 #한화투자신탁 #신한은행 #우리은행 #SC제일은행 #IBK기업은행 #SH수협은행 #DGB대구은행 #BNK부산은행 #광주은행 #제주은행 #전북은행 #BNK경남은행 #kbank #카카오뱅크 #토스뱅크 #&lt;b&gt;kakao&lt;/b&gt; #toss #&lt;b&gt;bank&lt;/b&gt;",
-      "url" : "https://blog.naver.com/vesa0/223047557323",
-      "blog_name" : "어차피 인생은 선택",
-      "thumbnail" : "",
-      "datetime" : "20230319"
-    }, {
-      "title" : "주간 미국증시 시황 정리[3/13~3/17] (feat. 환율, 금, 구리... ",
-      "contents" : "SVB 및 Signature &lt;b&gt;Bank&lt;/b&gt; 사태에도 나름 선방. 미국 정부의 예금자 보호 등 긴급 조치를 했으나... 카카오 뷰 바로가기 http://pf.&lt;b&gt;kakao&lt;/b&gt;.com/_nyFcxb 글이 도움이 되셨다면 네이버 인플루언서... ",
-      "url" : "https://blog.naver.com/jjangtg1/223048947342",
-      "blog_name" : "호빵먹는 부자",
-      "thumbnail" : "",
-      "datetime" : "20230319"
-    }, {
-      "title" : "[부자되자]사토시 코어코인기반 엔터탭 에어드랍 200만개한정!... ",
-      "contents" : "● 최신 블록 보상 마이닝 앱 - USDT, USDC &amp;amp; BUSD와 같은 스테이블 코인이 될 CBDC (Central &lt;b&gt;Bank&lt;/b&gt; Digital... https://open.&lt;b&gt;kakao&lt;/b&gt;.com/o/g4r7Igaf ● 채굴정보 1) 1시간마다 1블록 생성(Max 25 블록) * 꽉차기 전에 1일 1회... ",
-      "url" : "https://blog.naver.com/fevergzzonik/223048842368",
-      "blog_name" : "모바일코인채굴☆암호화폐 채굴정보나눔¡¡¡",
-      "thumbnail" : "",
-      "datetime" : "20230319"
-    } ]
-  }
-}</code></pre>
-</div>
-</div>
-</div>
-<div class="sect3">
-<h4 id="_response_field_4"><a class="link" href="#_response_field_4">✅ RESPONSE FIELD</a></h4>
-<table class="tableblock frame-all grid-all stretch">
-<colgroup>
-<col style="width: 33.3333%;">
-<col style="width: 33.3333%;">
-<col style="width: 33.3334%;">
-</colgroup>
-<thead>
-<tr>
-<th class="tableblock halign-left valign-top">필드명</th>
-<th class="tableblock halign-left valign-top">타입</th>
-<th class="tableblock halign-left valign-top">설명</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>code</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">결과 코드</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>message</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">결과 메세지</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>data.from</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">결과 값을 가져온 검색 엔진</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>data.list_size</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Number</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">결과 값 리스트 크기</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>data.list[].title</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">제목</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>data.list[].contents</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">내용</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>data.list[].url</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">해당 글 url</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>data.list[].blog_name</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">블로그 이름</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>data.list[].thumbnail</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">thumbnail</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>data.list[].datetime</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">등록일</p></td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-<div class="sect2">
 <h3 id="_검색어_순위_top_10"><a class="link" href="#_검색어_순위_top_10">📄 검색어 순위 (TOP 10)</a></h3>
 <div class="sect3">
-<h4 id="_request_http_5"><a class="link" href="#_request_http_5">✅ REQUEST HTTP</a></h4>
+<h4 id="_request_http_2"><a class="link" href="#_request_http_2">✅ REQUEST HTTP</a></h4>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">GET /v1/search/top HTTP/1.1
@@ -1462,7 +814,7 @@ Host: 127.0.0.1</code></pre>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_response_5"><a class="link" href="#_response_5">✅ RESPONSE</a></h4>
+<h4 id="_response_2"><a class="link" href="#_response_2">✅ RESPONSE</a></h4>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">HTTP/1.1 200 OK
@@ -1520,7 +872,7 @@ Content-Length: 875
 </div>
 </div>
 <div class="sect3">
-<h4 id="_response_field_5"><a class="link" href="#_response_field_5">✅ RESPONSE FIELD</a></h4>
+<h4 id="_response_field_2"><a class="link" href="#_response_field_2">✅ RESPONSE FIELD</a></h4>
 <table class="tableblock frame-all grid-all stretch">
 <colgroup>
 <col style="width: 33.3333%;">
@@ -1569,7 +921,7 @@ Content-Length: 875
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2023-03-20 22:22:25 +0900
+Last updated 2023-03-21 13:31:53 +0900
 </div>
 </div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.3/highlight.min.js"></script>
