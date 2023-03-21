@@ -12,6 +12,8 @@
 
 `docs` restdocs
 
+`port` 8080
+
 서버 실행 후 클릭해 주세요 ([문서 보기](http://localhost:8080/docs.html))
 
 --- 
@@ -50,7 +52,9 @@ restdocs를 사용하여 [api 문서](http://localhost:8080/docs.html) 를 확�
 
 `/v1/search`로 검색했을 때 검색한 내용을 redis에 5분간 저장하여 cache처럼 사용할 수 있도록 구현하였습니다.
 
-해당 기능은 사용자가 많을 경우 검색마다 api를 호출하여  
+해당 기능은 사용자가 많을 경우 검색마다 api를 호출하여 많은 리소스를 사용하는 부분을 줄이기 위해 redis를 추가하여 해결하기 위해 노력했습니다.
+
+해당 소스는 [feature/redis 브랜치](https://github.com/juno-choi/search-api/tree/feature/redis) 에서 확인해볼 수 있습니다 :)
 
 ---
 
